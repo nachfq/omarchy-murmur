@@ -41,6 +41,7 @@ install the two packages with Omarchy's package manager before enabling.
   mix to the chosen base volumes.
 - Tab / Shift+Tab move through controls. Arrow keys adjust the focused slider;
   Home / End set zero / full volume. Space or Enter activates a focused button.
+  Clicking a slider focuses it; its mouse wheel then adjusts that slider.
 
 The first mix has rain at 40%, master at 50%, and Randomize off. Preferences are
 stored in Murmur's own bar entry in `~/.config/omarchy/shell.json`. Restarting
@@ -48,6 +49,10 @@ the shell/session restores the mix **paused**. Random movement is not written
 to disk. Pause stops all voices. Play restarts the recordings from the beginning,
 keeping your volumes and Randomize setting. Removing the bar entry through disable/remove may discard its settings,
 as with other Omarchy inline widget preferences.
+
+The shared service owns the live mix. Changes are saved after you finish an
+interaction; delayed file notifications cannot rewind it. If you edit Murmur's
+settings in `shell.json` by hand, reload the shell to apply them.
 
 One shared audio service serves all bar instances. Qt mixes all active sounds
 into a single system audio stream. Audio follows the system's
@@ -81,6 +86,8 @@ python scripts/check_assets.py        # Python + ffmpeg
 node --test tests/model.test.cjs       # Node 22+
 omarchy plugin validate .
 scripts/check_qml.sh                  # Qt tools + installed Omarchy shell
+python scripts/test_ui.py             # Native mouse/keyboard gestures, offscreen
+QT_SCALE_FACTOR=1.5 python scripts/test_ui.py
 scripts/with_test_audio.sh scripts/test_service.sh
 scripts/with_test_audio.sh python3 scripts/test_output.py  # One stream + output changes
 scripts/with_test_audio.sh scripts/test_loops.sh           # ~70s loop capture

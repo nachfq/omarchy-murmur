@@ -1,0 +1,30 @@
+#!/usr/bin/env python3
+"""Run real pointer/keyboard tests in an offscreen Quickshell window."""
+import json
+import os
+from pathlib import Path
+import shutil
+import subprocess
+import tempfile
+
+root = Path(__file__).resolve().parent.parent
+shell = Path(os.environ.get('OMARCHY_PATH', '/usr/share/omarchy')) / 'shell'
+with tempfile.TemporaryDirectory(prefix='murmur-ui-') as directory:
+    fixture = Path(directory)
+    # Quickshell's qs imports are rooted in its config directory. Copy the
+    # installed/reference components unchanged; no desktop config is modified.
+    for name in ['Ui', 'Commons']:
+        shutil.copytree(shell / name, fixture / name)
+    for name in ['VolumeControl.qml', 'Service.qml', 'AudioChannel.qml', 'Model.js']:
+        shutil.copy2(root / name, fixture / name)
+    shutil.copy2(root / 'tests/ui/shell.qml', fixture / 'shell.qml')
+    env = dict(os.environ, QT_QPA_PLATFORM='offscreen', QT_QPA_PLATFORMTHEME='', QT_QUICK_BACKEND='software')
+    env.pop('WAYLAND_DISPLAY', None)
+    env.pop('DISPLAY', None)
+    result = subprocess.run(['quickshell', '-p', str(fixture / 'shell.qml'), '--no-color'],
+                            env=env, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=45)
+    print(result.stdout)
+    summaries = [line.split('MURMUR_UI_RESULT ', 1)[1] for line in result.stdout.splitlines() if 'MURMUR_UI_RESULT ' in line]
+    assert result.returncode == 0 and len(summaries) == 1, 'UI fixture did not finish'
+    counts = json.loads(summaries[0])
+    assert counts['failed'] == 0 and counts['passed'] >= 9, counts
