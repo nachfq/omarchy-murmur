@@ -2,6 +2,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtTest
 import Quickshell
+import qs.Ui as Ui
 
 // Runs inside an isolated Quickshell window with the actual Omarchy UI files.
 ShellRoot {
@@ -12,6 +13,7 @@ ShellRoot {
         id: fakeShell
         property var barConfig: ({layout: {center: [{id: 'nachfq.murmur'}]}})
         property var writes: []
+        function serviceFor(id) { return root.mixer; }
         function updateEntryInline(id, settings) {
             var entry = Object.assign({id: id}, settings);
             writes = writes.concat([JSON.parse(JSON.stringify(entry))]);
@@ -19,10 +21,28 @@ ShellRoot {
             return true;
         }
     }
+    Ui.PluginBarApi {
+        id: fakeBar
+        pluginId: 'nachfq.murmur'
+        moduleName: 'nachfq.murmur'
+        shell: fakeShell
+        barSize: 32
+        foreground: '#eeeeee'
+        barForeground: '#eeeeee'
+        fontFamily: 'monospace'
+    }
     FloatingWindow {
         implicitWidth: 500
         implicitHeight: 500
         visible: true
+        BarWidget {
+            id: barWidget
+            bar: fakeBar
+            y: 460
+            width: implicitWidth
+            height: implicitHeight
+            z: 1
+        }
         Flickable {
             id: flick
             anchors.fill: parent
@@ -205,6 +225,40 @@ ShellRoot {
                 mouseRelease(s, 160, s.height / 2);
                 root.mixer.playing = false;
                 equal(c.value, .8);
+            }
+            function test_zBarRevealAndPause() {
+                equal(barWidget.width, 0);
+                fakeBar.centerSectionRevealHeld = true;
+                verify(barWidget.width > 0);
+                var button = barWidget.children.find(function(c) { return c.activeText !== undefined; });
+                tryCompare(button, 'opacity', .45);
+                mouseClick(button, button.width / 2, button.height / 2);
+                verify(barWidget.opened);
+                fakeBar.centerSectionRevealHeld = false;
+                verify(barWidget.width > 0);
+                root.mixer.playing = true;
+                tryCompare(button, 'opacity', 1);
+                root.mixer.playing = false;
+                verify(barWidget.width > 0); // Pause must not move the open panel's anchor.
+                barWidget.close();
+                equal(barWidget.width, 0);
+                fakeBar.centerSectionRevealHeld = true;
+                mouseClick(button, button.width / 2, button.height / 2);
+                verify(barWidget.opened); // Paused controls remain reachable.
+                barWidget.close();
+                fakeBar._centerHoverRevealSuppressed = true;
+                equal(barWidget.width, 0);
+                fakeBar._centerHoverRevealSuppressed = false;
+                fakeBar.centerSectionRevealHeld = false;
+                root.mixer.playing = true;
+                verify(barWidget.width > 0);
+                root.mixer.playing = false;
+                fakeBar.vertical = true;
+                equal(barWidget.height, 0);
+                fakeBar.centerSectionRevealHeld = true;
+                verify(barWidget.height > 0);
+                fakeBar.vertical = false;
+                fakeBar.centerSectionRevealHeld = false;
             }
         }
     }

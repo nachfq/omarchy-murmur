@@ -16,7 +16,7 @@ Quickshell 0.3.1 and Qt 6.11.2. Omarchy 3/Waybar is not supported.
 
 ```sh
 omarchy plugin add https://github.com/nachfq/omarchy-murmur.git --enable
-omarchy bar move nachfq.murmur --section center --after omarchy.clock
+omarchy bar move nachfq.murmur --section center --before omarchy.clock
 ```
 
 The install command uses the repository's default branch. During initial
@@ -27,7 +27,10 @@ install the two packages with Omarchy's package manager before enabling.
 
 ## Use
 
-- Click the wave icon beside the clock to open the panel. Click again, click
+- Hover the center of the bar to reveal Murmur's paused, dimmed wave icon
+  before the clock. While playing, it stays visible in the normal theme color,
+  like Omarchy's status indicators. An open panel keeps its icon visible.
+- Click the wave icon to open the panel. Click again, click
   outside, or press Escape to close it. Closing does not stop the sounds.
 - **Play / Pause** controls the whole mix. A channel at zero is off. With every
   channel off, Play is disabled until you raise one.

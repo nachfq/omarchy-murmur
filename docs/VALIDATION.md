@@ -15,6 +15,7 @@ environment. CI also validates against the official Omarchy shell at commit
 | Sum of decoded individual peaks | 0.8049; below full scale with all channels at maximum |
 | Deterministic mixer model | 9 tests, including one simulated hour of drift |
 | Native slider gestures | 8 scenarios at scale 1 and 1.5, using actual Qt mouse/keyboard events and Omarchy drawing components |
+| Native bar indicator | Hover reveal, click/reopen, playback opacity, stable anchor on Pause, reveal suppression, and vertical collapse at scale 1 and 1.5 |
 | Qt service integration | 6 scenarios: ten players and pause/resume; persistence; random/mute; error isolation; live edits; visible/audible drift |
 | Actual looping | Shared mixer plays through two boundaries during 64 seconds of playback |
 | Recorded loop continuity | 61-second interval, longest near-silent run 0.04 ms, no clipping |
@@ -33,6 +34,24 @@ The remaining files pass decoded boundary checks; this does not replace human
 listening to every recording or guarantee every audio backend is gapless.
 
 ## Desktop checks
+
+### Native UI polish
+
+Removed Murmur's added slider focus rectangle. Input still belongs to Qt's
+standard Slider. Birds, singing bowl and white noise now use Nerd Fonts'
+Material Design `bird`, `bowl-outline` and `waveform` glyphs; checked their
+rendering in the installed JetBrainsMono Nerd Font.
+
+The bar uses Omarchy's `BarIndicator` and public `centerSectionRevealHeld` /
+`centerHoverRevealSuppressed` state. Paused icons collapse until center hover;
+playing icons use the native full-opacity theme foreground. An open panel
+keeps its anchor visible. Positioning uses `omarchy bar move --before`, without
+modifying the built-in indicators list or packaged shell files.
+
+The offscreen gesture suite also clicks the actual bar indicator through
+reveal/open/pause/close/reopen. This scenario uses a panel lifecycle stub:
+offscreen Quickshell has no layer-shell backend, so it does not test popup
+rendering or the compositor's physical hover detection.
 
 ### Slider gesture regressions
 

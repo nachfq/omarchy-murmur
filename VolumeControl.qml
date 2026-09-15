@@ -104,15 +104,6 @@ Column {
         Accessible.description: root.errorText || Math.round(value * 100) + '%'
         Accessible.onIncreaseAction: adjust(0.02)
         Accessible.onDecreaseAction: adjust(-0.02)
-
-        Rectangle {
-            anchors.fill: parent
-            anchors.margins: -2
-            color: 'transparent'
-            border.width: slider.activeFocus ? 1 : 0
-            border.color: root.bar ? root.bar.foreground : Color.foreground
-            radius: Style.cornerRadius
-        }
     }
     Text {
         visible: root.errorText !== ''
