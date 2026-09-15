@@ -59,7 +59,10 @@ Item {
         source: root.loaded ? Qt.resolvedUrl('assets/' + root.soundId + '.wav') : ''
         audioDevice: devices.defaultAudioOutput
         loops: SoundEffect.Infinite
-        volume: root.level * root.gain
+        // Qt 6.11.2 zero-volume voices overwrite the shared mix with silence
+        // (QSoundEffectVoice::playVoice). Use a -180 dB gain floor until
+        // stopVoice removes the voice; sliders and saved values still reach 0.
+        volume: Math.max(1e-9, root.level * root.gain)
         // Keep steady-state drift interpolation inside Qt. The short playback
         // envelope already interpolates gain, so it needs no second animation.
         Behavior on volume {

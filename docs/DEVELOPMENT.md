@@ -15,6 +15,7 @@ python scripts/test_ui.py             # Native mouse/keyboard gestures, offscree
 QT_SCALE_FACTOR=1.5 python scripts/test_ui.py
 scripts/with_test_audio.sh scripts/test_service.sh
 scripts/with_test_audio.sh python3 scripts/test_fades.py   # Recorded fade envelope
+scripts/with_test_audio.sh python3 scripts/test_mute.py    # Other voices stay continuous
 scripts/with_test_audio.sh python3 scripts/test_output.py  # One stream + output changes
 scripts/with_test_audio.sh scripts/test_loops.sh           # ~70s loop capture
 scripts/with_test_audio.sh python3 scripts/measure_resources.py --output /tmp/yuragi-resources.json

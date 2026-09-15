@@ -80,10 +80,14 @@ Item {
 
     function setLevel(index, value) {
         if (index < 0 || index >= channels.length) return;
+        var wasAllOff = channels.every(function(c) { return c.base === 0; });
         var next = channels.slice();
         next[index] = Object.assign({}, next[index]);
         Model.setLevel(next[index], value);
         channels = next;
+        // Only an explicit edit from an empty mix starts playback. Restoring
+        // settings and editing a manually paused, nonempty mix stay paused.
+        if (wasAllOff && canPlay) playing = true;
         scheduleSave();
     }
 

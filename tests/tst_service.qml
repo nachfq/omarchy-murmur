@@ -79,6 +79,27 @@ TestCase {
         verify(mixer.playing);
     }
 
+    function test_mutingDoesNotRestartOtherChannels() {
+        mixer.setLevel(1, 0.6);
+        mixer.togglePlayback();
+        var rain = playerFor('rain');
+        var voice = findChild(mixer, 'channel-rain');
+        tryCompare(voice, 'gain', 1);
+        tryCompare(playerFor('thunder'), 'playing', true);
+        var events = [];
+        var changed = function() { events.push(rain.playing); };
+        rain.playingChanged.connect(changed);
+        mixer.setLevel(1, 0);
+        wait(1200);
+        verify(rain.playing);
+        compare(voice.gain, 1);
+        compare(events.length, 0, JSON.stringify(events));
+        mixer.setLevel(1, 0.6);
+        wait(1200);
+        compare(events.length, 0, JSON.stringify(events));
+        rain.playingChanged.disconnect(changed);
+    }
+
     function test_randomUpdatesBindingsAndAudio() {
         mixer.togglePlayback();
         mixer.toggleRandomize();
@@ -141,6 +162,29 @@ TestCase {
         mixer.setLevel(0, 0);
         verify(!mixer.playing);
         verify(!mixer.animating);
+        tryVerify(function() { return !playerFor('rain').source.toString(); });
+        mixer.setLevel(1, 0.4); // First positive level after an empty mix starts it.
+        tryCompare(playerFor('thunder'), 'playing', true);
+        verify(mixer.playing);
+        mixer.togglePlayback(); // Manual pause of a nonempty mix is respected.
+        mixer.setLevel(0, 0.4);
+        wait(800);
+        verify(!mixer.playing);
+        verify(!playerFor('rain').playing);
+        verify(!playerFor('thunder').playing);
+    }
+
+    function test_restoringSettingsDoesNotAutoplay() {
+        var zero = {};
+        for (var i = 0; i < mixer.channels.length; i++) zero[mixer.channels[i].id] = 0;
+        mixer.loadSettings({volumes: zero});
+        verify(!mixer.playing);
+        verify(!mixer.canPlay);
+        zero.rain = 0.5;
+        mixer.loadSettings({volumes: zero});
+        wait(200);
+        verify(mixer.canPlay);
+        verify(!mixer.playing);
     }
 
     function test_errorIsolation() {
