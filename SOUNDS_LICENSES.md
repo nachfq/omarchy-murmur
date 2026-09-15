@@ -33,7 +33,8 @@ The unchanged cricket input comes from [Blanket at commit
 `9d229d2be7cb6619135d55ff9e49926e40298686`](https://github.com/rafaelmardojai/blanket/blob/9d229d2be7cb6619135d55ff9e49926e40298686/SOUNDS_LICENSING.md),
 which licenses sounds separately from its application code. No Blanket code
 is included. White noise is generated locally with a fixed seed and dedicated
-to CC0. The shipped cricket and white-noise files are unchanged.
+to CC0. The shipped cricket file is unchanged; white noise retains its generator and seed
+with the approved loudness adjustment below.
 
 ## Yuragi modifications
 
@@ -54,13 +55,31 @@ is applied to thunder; its quiet background and decay remain in the crop.
 | Coffee shop | 55 s | 1 s |
 | Singing bowl | 40 s | 2 s |
 | Crickets | 49.07 s (unchanged) | 0.25 s |
-| White noise | 29.75 s (unchanged) | 0.25 s |
+| White noise | 29.75 s | 0.25 s |
 
 The ten WAVs total **52.99 MiB (55.57 MB)**. Only the prepared crops are shipped;
 the 425.25 MiB of downloaded originals remain outside the repository.
 
 Exact original filenames, download URLs, input SHA-256 and shipped SHA-256
 are recorded in [assets/sources.json](assets/sources.json).
+
+## Loudness calibration
+
+Rain, waves, wind, birds, coffee, bowl and white noise are calibrated to
+**−42 LUFS integrated**. Thunder, fire and crickets are excluded. The maintainer
+listened to and approved this local mix on 2026-09-15.
+
+Preparation applies a fixed gain and an offline sample-peak limiter (0.085,
+5 ms attack, 50 ms release, automatic makeup disabled). One second of periodic
+padding on each side settles the limiter across the seam; delay compensation
+and trimming preserve the exact frame count. This runs only while preparing
+assets: playback adds no processing, memory or file-size overhead.
+
+The catalog records each gain, target and intermediate PCM WAV checksum.
+The resulting seven files measure −42.00 to −42.12 LUFS; equal measured loudness
+is a useful starting point, not a guarantee of equal subjective loudness.
+See [measurements](docs/loudness.json). The conservative sum of sample peaks is
+0.7291 with all ten channels at full volume.
 
 ## Verification and regeneration
 
@@ -81,7 +100,10 @@ remain 60 and 0.25 seconds. Crops start at zero. Overlapping the ends reduces
 the final length by the overlap, capped at one quarter of a short input.
 
 Encoder versions can change output bytes. Use `--record` only for an intentional,
-reviewed update of catalog hashes. Cached originals are not shipped.
+reviewed update of catalog hashes. Calibration also pins the intermediate WAV:
+if that checksum changes, preparation stops even with `--record`. Remeasure and
+review the gain before updating `loudness.input_sha256`; do not bypass this guard
+just to accept a different encoder. Cached originals are not shipped.
 
 ## Reference site
 

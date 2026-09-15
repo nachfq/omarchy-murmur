@@ -103,3 +103,10 @@ channels continue to unload their samples, and one native output is preserved.
 [Raw before/after data and prepared-asset measurements](audio-selection-measurements.json)
 include the actual sample lengths and decoded seam checks. No subjective
 listening, battery, additional-machine or popup-rendering result is implied.
+
+### Approved loudness calibration
+
+The selected-recording resource measurements above preceded the seven-channel
+loudness adjustment. That adjustment changes only PCM sample values: durations,
+formats, total bytes and runtime code are identical. No new CPU/RAM measurement
+is claimed for the calibrated files.

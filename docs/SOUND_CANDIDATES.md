@@ -7,7 +7,8 @@
 Selected on 2026-09-15: **R-B, T-B, W-B, V-A, B-A, K-A, S-B and F-E**.
 The maintainer supplied the seven original WAVs and courter's original MP3.
 They are now prepared in `assets/`, with crops starting at zero. The existing
-crickets and generated white noise remain byte-for-byte unchanged.
+crickets remain byte-for-byte unchanged. Generated white noise keeps its source
+and duration, with the approved loudness adjustment.
 
 Final loop lengths: rain 60 s, thunder 120 s, waves 60 s, wind 45 s,
 birds 60 s, coffee 55 s, bowl 40 s and fire 60 s. The complete catalog is
@@ -20,8 +21,9 @@ Wrap overlaps are 1–2 seconds; the input crop includes that overlap so the
 final durations above are exact. See [credits and preparation](../SOUNDS_LICENSES.md)
 for per-track settings and source/output checksums. CI checks exact crop
 lengths and a 55 MiB audio budget, preventing accidental full-original imports.
-The maintainer selected the source recordings by listening; automated checks
-of the prepared crops do not replace a final listening review of their seams.
+The maintainer selected the sources and approved the local prepared loudness
+trial. Seven channels now target −42 LUFS; thunder, fire and crickets are excluded.
+See [preparation and calibration](../SOUNDS_LICENSES.md#loudness-calibration).
 
 The two source recordings credited in W-B have now also been checked:
 [subtyrant, Xerokambos beach](https://freesound.org/people/subtyrant/sounds/132079/)

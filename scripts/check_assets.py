@@ -39,6 +39,15 @@ for sound in sounds:
     # largest existing adjacent-sample change (noise naturally has jumps).
     jumps = max(abs(samples[i] - samples[i - 1]) for i in range(1, len(samples)))
     assert abs(samples[0] - samples[-1]) <= jumps + 0.001, path
+    if 'loudness' in sound:
+        scan = subprocess.run([
+            'ffmpeg', '-hide_banner', '-nostats', '-i', str(path),
+            '-af', 'loudnorm=I=-24:TP=-2:LRA=50:print_format=json',
+            '-f', 'null', '-'], capture_output=True, text=True, check=True)
+        measured = json.JSONDecoder().raw_decode(scan.stderr[scan.stderr.rfind('{'):])[0]
+        loudness = float(measured['input_i'])
+        assert abs(loudness - sound['loudness']['target_lufs']) <= 0.3, (path, loudness)
+        print(f"{sound['id']}: {loudness:.2f} LUFS")
     peaks.append(peak)
     print(f"{sound['id']}: OK, peak {peak:.4f}")
 assert sum(peaks) < 1, 'Ten-channel conservative peak sum must stay below full scale'

@@ -11,11 +11,16 @@
     "editor": "",
     "file": "assets/rain.wav",
     "source_sha256": "8a9b4197b539f7d08d325125570dc5a0c91c43d519474ebb2874ac6baba4b142",
-    "sha256": "92868a4e70f71211177cddc7e4ed553bb90f93a140af0bbc7303ee5f18ccddd6",
+    "sha256": "5f1c7016a12cc7359e9eb1853ee222f61027a4df8d31d4ec88f1233b69d7f58b",
     "crop_seconds": 61,
     "crossfade_seconds": 1,
     "original_filename": "681490__mikenavajas__rain-lluvia-3min-stereo.wav",
-    "original_format": "WAV PCM"
+    "original_format": "WAV PCM",
+    "loudness": {
+      "input_sha256": "92868a4e70f71211177cddc7e4ed553bb90f93a140af0bbc7303ee5f18ccddd6",
+      "target_lufs": -42.0,
+      "gain_db": 5.24
+    }
   },
   {
     "id": "thunder",
@@ -47,11 +52,16 @@
     "editor": "esh9419 composite of subtyrant https://freesound.org/people/subtyrant/sounds/132079/ and indieground https://freesound.org/people/indieground/sounds/322139/ (both CC0)",
     "file": "assets/waves.wav",
     "source_sha256": "43829450b07292eb7cf0169fe8d2260e92584776466621cff7963425a42c6fd1",
-    "sha256": "ac01f0cc1fc0bda29df3075bc1063cced7927af905978036d16743b0b707b130",
+    "sha256": "bfc8c8ba8c8affc5f9dfcd3a896e09b709362af76bd6297418b54f19fc65b5b7",
     "crop_seconds": 62,
     "crossfade_seconds": 2,
     "original_filename": "417797__esh9419__gentle-ocean-waves-mix-2018.wav",
-    "original_format": "WAV PCM"
+    "original_format": "WAV PCM",
+    "loudness": {
+      "input_sha256": "ac01f0cc1fc0bda29df3075bc1063cced7927af905978036d16743b0b707b130",
+      "target_lufs": -42.0,
+      "gain_db": 7.22
+    }
   },
   {
     "id": "wind",
@@ -65,11 +75,16 @@
     "editor": "",
     "file": "assets/wind.wav",
     "source_sha256": "6d8f69a885e6a1665e7353b25cca1d1590be50b683fbf128e2dee7402a3f2a7d",
-    "sha256": "28d33453a878bdc911cc8fe8d0961e4e0cd3916fb3184ecf76d4350469a95665",
+    "sha256": "a33f082c9d441061a2f947303aafcba7d784c39366528d4c97ba70d00850c652",
     "crop_seconds": 47,
     "crossfade_seconds": 2,
     "original_filename": "172666__underlineddesigns__ambient-wind-real-wind.wav",
-    "original_format": "WAV PCM"
+    "original_format": "WAV PCM",
+    "loudness": {
+      "input_sha256": "28d33453a878bdc911cc8fe8d0961e4e0cd3916fb3184ecf76d4350469a95665",
+      "target_lufs": -42.0,
+      "gain_db": 9.98
+    }
   },
   {
     "id": "fire",
@@ -101,11 +116,16 @@
     "editor": "",
     "file": "assets/birds.wav",
     "source_sha256": "72cea658fc77666eb5464ad065c40cb1bbce0132bbb91037590203875c35f7c8",
-    "sha256": "ef1eb8cd82bba86899ad20b8582e5f9f4b9682062d8b51b2e0ea7254ac371984",
+    "sha256": "069c2e439255821b06f0cd9145f231183792a8bb0db3eb4124beff1d7babcd51",
     "crop_seconds": 61,
     "crossfade_seconds": 1,
     "original_filename": "490846__burghrecords__birds-in-forest-scotland.wav",
-    "original_format": "WAV PCM"
+    "original_format": "WAV PCM",
+    "loudness": {
+      "input_sha256": "ef1eb8cd82bba86899ad20b8582e5f9f4b9682062d8b51b2e0ea7254ac371984",
+      "target_lufs": -42.0,
+      "gain_db": -4.51
+    }
   },
   {
     "id": "crickets",
@@ -133,11 +153,16 @@
     "editor": "",
     "file": "assets/coffee.wav",
     "source_sha256": "f7b6b3c8d92dac7142d951c22a5414abc1266ee10e5b9651b5ef528a519f1c92",
-    "sha256": "dac64e2b28c1bfe6233656a3202671b0670d68f9602395c6cb1b83e83bb5f1c9",
+    "sha256": "13c06a6a49a46f2e22029f90c56a2fcfc567c36fd37b76756bbc03df7a497876",
     "crop_seconds": 56,
     "crossfade_seconds": 1,
     "original_filename": "370973__waweee__coffee-shop-ambience.wav",
-    "original_format": "WAV PCM"
+    "original_format": "WAV PCM",
+    "loudness": {
+      "input_sha256": "dac64e2b28c1bfe6233656a3202671b0670d68f9602395c6cb1b83e83bb5f1c9",
+      "target_lufs": -42.0,
+      "gain_db": -1.22
+    }
   },
   {
     "id": "bowl",
@@ -151,11 +176,16 @@
     "editor": "",
     "file": "assets/bowl.wav",
     "source_sha256": "f707787bf5ea7acba69f41dd263f9c134537d29666cb455cfaf501b9c16cdeb6",
-    "sha256": "edba5ec75b0f27af2c96d5dece69d84ef9c93ad27075d6065e0755d99624d754",
+    "sha256": "9bf37f6628d2b59f5b4589d1da98ca225ae9732e8e1241aeaefd9bb33c1ec305",
     "crop_seconds": 42,
     "crossfade_seconds": 2,
     "original_filename": "59152__coleco__singingbowl1.wav",
-    "original_format": "WAV PCM"
+    "original_format": "WAV PCM",
+    "loudness": {
+      "input_sha256": "edba5ec75b0f27af2c96d5dece69d84ef9c93ad27075d6065e0755d99624d754",
+      "target_lufs": -42.0,
+      "gain_db": -0.01
+    }
   },
   {
     "id": "noise",
@@ -169,6 +199,11 @@
     "editor": "",
     "file": "assets/noise.wav",
     "source_sha256": "1e89c39b159f58951261aef9cf7deea0bdf0c0609c0762ba5bd0aea4a466c6c5",
-    "sha256": "517eb6c6140a0567bfdf1385107dbfddf2517c08568fc767f8209e7426ba6b95"
+    "sha256": "40f092da1d1bf0fca0cdf10347f124ac947ab62a2aa529b3684983e2ab93e47c",
+    "loudness": {
+      "input_sha256": "517eb6c6140a0567bfdf1385107dbfddf2517c08568fc767f8209e7426ba6b95",
+      "target_lufs": -42.0,
+      "gain_db": -12.22
+    }
   }
 ]

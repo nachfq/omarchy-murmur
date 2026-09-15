@@ -1,15 +1,27 @@
 # Publish Yuragi
 
-## Release 1.0.0
+## Distribution and release 1.0.0
 
-The initial ten PRs are merged into `main`; the final combined commit
-`4902e0818f4382658e2f1600625ebe00ccf8fd38` passed CI on 2026-09-15.
-Future changes should stay in focused PRs for maintainer review and merge.
+Yuragi is distributed directly from its public GitHub repository. It needs no
+npm package, registry upload or compiled binary. The installed Omarchy 4.0.3
+`plugin add` command clones the repository's default branch and validates its
+manifest; it does not download the latest GitHub release.
 
-A release can be tagged `v1.0.0` from a validated commit on `main`.
+```sh
+omarchy plugin add https://github.com/nachfq/omarchy-yuragi.git --enable
+```
+
+1. Have the maintainer merge the reviewed changes into `main` after CI passes.
+2. Verify a clean install, playback and removal from the public default branch.
+3. On GitHub, open **Releases → Draft a new release**, create tag `v1.0.0`
+   targeting the validated `main` commit, and use the release notes below.
+4. Submit the repository to the Omarchy marketplace using the form below.
+
+A [GitHub release](https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases)
+records a stable Git tag with notes. GitHub supplies source ZIP/tar archives
+automatically; no additional release asset is needed. The tag marks a reproducible
+version, while Omarchy installation still follows the default branch.
 Do not publish a tag from an unmerged feature branch.
-Use the release notes below; validate installation from the public default
-branch before requesting the marketplace listing.
 
 ## Marketplace submission
 
