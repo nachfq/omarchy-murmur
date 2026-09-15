@@ -2,6 +2,54 @@
 
 # Sound candidates for listening
 
+## Maintainer selections
+
+Selected on 2026-09-15: **R-B, T-B, W-B, V-A, B-A, K-A and S-B**.
+Use crops from the beginning. Keep the current crickets and generated white
+noise unchanged. Fire is awaiting a new choice from the alternatives below.
+Original WAV retrieval is still pending; these selections are not installed.
+
+At the current mono 48 kHz PCM16 format, a first budget below 50 MiB can use
+these final loop lengths: rain 60 s, thunder 120 s, waves 60 s, wind 45 s,
+birds 60 s, coffee 55 s and bowl 40 s. Including the three unchanged files,
+that is about **49.8 MiB**. These are provisional preparation lengths, not a
+listening verdict. Allow extra input for the wrap crossfade; the crop still
+starts at zero. Keeping all five minutes of thunder instead would add about
+16.5 MiB to this plan.
+
+The two source recordings credited in W-B have now also been checked:
+[subtyrant, Xerokambos beach](https://freesound.org/people/subtyrant/sounds/132079/)
+and [indieground, Low tide](https://freesound.org/people/indieground/sounds/322139/)
+both identify CC0. Preserve all three authors in the imported recording's credits.
+
+### New fire alternatives
+
+All three pages identify CC0. Descriptions below are the authors' recording
+notes, not our own listening assessment. F-C and F-D have lossless originals;
+F-E's original is already MP3.
+
+| ID | Listen | Source length | Character / original |
+| --- | --- | --- | --- |
+| F-C | [Fire crackling in fireplace — Davor](https://freesound.org/people/Davor/sounds/382616/) | 1:20 | Fireplace recorded with a Zoom H1; normalized, no EQ/effects. WAV, 48 kHz/24-bit stereo. |
+| F-D | [Fireplace — BonnyOrbit](https://freesound.org/people/BonnyOrbit/sounds/484337/) | 2:04 | Burning logs and flames in an old building, Zoom H6. WAV, 48 kHz/24-bit stereo. |
+| F-E | [Crackeling Fireplace — courter](https://freesound.org/people/courter/sounds/447818/) | 6:43 | Wet pine chosen for frequent pops, Zoom H4n Pro. MP3, 44.1 kHz/256 kbps stereo. |
+
+### Thunder background
+
+Replacing low-level samples with zeros does **not** reduce PCM WAV size or
+SoundEffect's decoded buffer size: every second still stores 48,000 samples.
+It can improve compression in a future compressed distribution, but that is
+separate from the current playback format. Removing time would reduce size,
+but would also move thunderclaps closer together.
+
+If background cleanup is desirable, use a slowly changing level envelope
+(a noise gate with attack/release), not a per-sample threshold: cutting each
+waveform's quiet samples creates distortion. Threshold selection needs the
+original recording and listening to preserve distant thunder and its decay.
+No gate has been applied yet.
+
+## Original shortlist
+
 Shortlist checked on 2026-09-15. **These are candidates, not installed assets.**
 All twenty linked sound pages identify CC0. Names, durations, formats and notes
 come from the authors' pages; this is not a claim that we listened to or approved
@@ -27,7 +75,7 @@ can be several minutes long while we ship a selected 45–90 second passage.
 | Singing bowl | [S-A: Singing Bowl, long without reverb — hollandm](https://freesound.org/people/hollandm/sounds/573805/) · 2:07 · WAV, 44.1 kHz/16-bit stereo. Sustained rim playing, AKG P220; EQ/compression. | [S-B: singingbowl1 — Coleco](https://freesound.org/people/Coleco/sounds/59152/) · 1:12 · WAV, 48 kHz/16-bit stereo. An alternative bowl recording; compare tone and decay. |
 | White noise | [N-A: White Noise — ShawnyBoy](https://freesound.org/people/ShawnyBoy/sounds/165395/) · 1:30 · WAV, 44.1 kHz/16-bit mono. Plain white noise. | [N-B: NOISE-WHITE-10VU — mutantra](https://freesound.org/people/mutantra/sounds/571174/) · 1:04 · WAV, 48 kHz/24-bit stereo. Another white-noise reference. |
 
-*For W-B, verify the two original source pages and retain their credits before
+*W-B's two original source pages are verified above; retain their credits when
 importing the composite. All selections still need original-file retrieval,
 checksum pinning, listening, mono compatibility and loop/headroom validation.
 

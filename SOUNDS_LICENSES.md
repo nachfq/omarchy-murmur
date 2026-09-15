@@ -33,7 +33,7 @@ generated locally with a fixed seed; we dedicate that recording to CC0.
 
 ## Yuragi modifications
 
-All files are converted to 48 kHz mono, trimmed to at most 60 seconds, given
+The currently shipped files are converted to 48 kHz mono, trimmed to at most 60 seconds, given
 a 250 ms wrap crossfade, calibrated with a fixed per-track peak budget, and
 encoded as mono 48 kHz, 16-bit PCM WAV. All tracks use the same PCM format
 so Qt can mix them through one output. Prior edits by Porrumentzio and qubodup are
@@ -51,6 +51,16 @@ To regenerate (maintainer operation; Python 3 and ffmpeg required):
 ```sh
 python scripts/prepare_audio.py
 ```
+
+For a selective replacement, `--only rain thunder` prepares just those IDs and
+leaves the other WAV files untouched. Optional `crop_seconds` and
+`crossfade_seconds` entries in `assets/sources.json` control each recording's
+preparation; defaults remain 60 and 0.25 seconds. Crops start at zero. The
+crossfade overlaps the ends, so the shipped duration is the decoded crop
+duration minus the overlap (which is capped at one quarter of a short input).
+Freesound original downloads require login: cache an original under
+`.cache/audio/<id>` before regeneration, with its SHA-256 pinned in the catalog.
+Do not substitute a preview for a selected lossless original.
 
 Source checksums are enforced. Encoder versions can change output bytes;
 use `--record` only for an intentional, reviewed update of the catalog hashes.
