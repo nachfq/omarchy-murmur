@@ -13,7 +13,7 @@ Never edit packaged Omarchy files. Follow the installed shell contract.
 - Run `python scripts/check_assets.py` and, when present,
   `node --test tests/model.test.cjs` and `scripts/check_qml.sh`.
 - For audio changes, run the service, output-count, and loop tests through
-  `scripts/with_test_audio.sh`, plus `python scripts/test_fades.py` through the
+  `scripts/with_test_audio.sh`, plus `python scripts/test_fades.py` and `python scripts/test_mute.py` through the
   same wrapper. Never change desktop defaults for a test.
 - For control changes, run `python scripts/test_ui.py` at scale 1 and 1.5.
   Test actual pointer/keyboard events, not just assignments to model values.

@@ -14,9 +14,9 @@ environment. CI also validates against the official Omarchy shell at commit
 | PCM WAV format, duration and boundary discontinuities | All 10 pass |
 | Sum of decoded individual peaks | 0.8049; below full scale with all channels at maximum |
 | Deterministic mixer model | 9 tests, including one simulated hour of drift |
-| Native slider gestures | 8 scenarios at scale 1 and 1.5, using actual Qt mouse/keyboard events and Omarchy drawing components |
+| Native slider gestures | 9 scenarios at scale 1 and 1.5, using actual Qt mouse/keyboard events and Omarchy drawing components |
 | Native bar indicator | Hover reveal, click/reopen, playback opacity, stable anchor on Pause, reveal suppression, and vertical collapse at scale 1 and 1.5 |
-| Qt service integration | 7 scenarios: ten players and pause/resume; persistence; random/mute; error isolation; live edits; visible/audible drift; fade reversal and sample release |
+| Qt service integration | 9 scenarios: ten players and pause/resume; persistence; random/mute and first-channel autoplay; error isolation; live edits; visible/audible drift; fade reversal and sample release; mute continuity; restoring settings without autoplay |
 | Actual looping | Shared mixer plays through two boundaries during 64 seconds of playback |
 | Recorded loop continuity | 61-second interval, longest near-silent run 0.08 ms, no clipping |
 | Native stream count and recorded output | One stream with ten sounds, drift, one sound, pause/resume, and default-output removal/switch |
@@ -185,3 +185,35 @@ rather than a controlled benchmark. The random timer stops while paused.
 
 Run the commands in the README to reproduce the functional checks. Full CI
 logs are available in the repository's Actions tab and attached to each PR.
+
+## Muting a channel must not interrupt the remaining mix
+
+A captured ascending reference tone confirmed the reported interruption when a
+second channel was set to zero: the reference kept its timeline but disappeared
+briefly. Qt's `playing` flags stayed true, so the earlier state-only tests missed
+this. Qt 6.11.2's [QSoundEffectVoice::playVoice](https://github.com/qt/qtmultimedia/blob/v6.11.2/src/multimedia/audio/qsoundeffectwithplayer.cpp)
+uses `fill_n` on the shared output buffer for zero-volume/muted voices, erasing
+contributions already mixed by other voices. Yuragi's 600 ms fade-out could leave
+such a voice present after its channel level had reached zero.
+
+AudioChannel now uses a `1e-9` (-180 dB) internal gain floor, avoiding that Qt
+branch while the voice is still active. This is far below PCM16 resolution;
+it does not alter slider values or saved settings. Muted channels still stop
+and release their samples after the fade, and whole-mix Pause still unloads all
+voices. No packaged Qt or Omarchy files are changed.
+
+`scripts/test_mute.py` records the real service with a generated rising tone and
+a second voice that is muted, re-enabled and muted again. It checks both the
+absence of silent gaps over 20 ms and the tone's continued time progression.
+The same test rejected the pre-fix baseline with a **593 ms** interruption.
+The corrected local capture had a longest near-silent run of **0.02 ms**.
+The test runs on the private PipeWire server in CI, alongside fade, routing and
+loop captures. A service regression also watches the untouched player's state
+and gain, distinguishing a timeline restart from an output interruption.
+
+Bringing all channels to zero pauses playback and unloads their samples.
+An explicit slider edit that raises the first channel from an all-zero mix
+starts playback automatically. Editing a manually paused, nonempty mix keeps
+it paused, as does restoring saved settings. Service tests cover those cases;
+native slider tests reach zero with Home and raise a channel with an arrow key
+at scales 1 and 1.5. Play remains disabled while all channels are zero.

@@ -42,6 +42,7 @@ jobs:
             QT_SCALE_FACTOR=1.5 python3 scripts/test_ui.py
             scripts/test_service.sh
             python3 scripts/test_fades.py
+            python3 scripts/test_mute.py
             python3 scripts/test_output.py
             scripts/test_loops.sh
           '

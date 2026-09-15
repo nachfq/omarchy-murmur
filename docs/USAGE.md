@@ -8,7 +8,9 @@
 - Click the wave icon to open the panel. Click again, click
   outside, or press Escape to close it. Closing does not stop the sounds.
 - **Play / Pause** controls the whole mix. A channel at zero is off. With every
-  channel off, Play is disabled until you raise one.
+  channel off, the mix pauses and Play is disabled. Raising the first channel
+  from an all-zero mix starts playback automatically. Adjusting a manually
+  paused mix that already has nonzero channels keeps it paused.
   Playback fades in and out over 600 ms. Clicking again during a fade reverses
   it smoothly; the master and channel sliders keep their chosen values.
 - **Master** changes only Yuragi. The operating system volume remains separate.

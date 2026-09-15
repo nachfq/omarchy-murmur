@@ -130,6 +130,25 @@ ShellRoot {
                     for (var j = 0; j < 10; j++) if (j !== i) equal(root.mixer.channels[j].base, before[j]);
                 }
             }
+            function test_firstSliderAfterAllZeroStartsPlayback() {
+                root.mixer.setLevel(1, .5);
+                root.mixer.togglePlayback();
+                for (var i = 0; i < 2; i++) {
+                    var slider = controls.itemAt(i).focusItem;
+                    mouseClick(slider, slider.width / 2, slider.height / 2);
+                    keyClick(Qt.Key_Home);
+                    equal(root.mixer.channels[i].base, 0);
+                    equal(root.mixer.playing, i === 0);
+                }
+                equal(root.mixer.canPlay, false);
+                equal(root.mixer.animating, false);
+                keyClick(Qt.Key_Right);
+                verify(root.mixer.channels[1].base > 0);
+                equal(root.mixer.playing, true);
+                root.mixer.togglePlayback();
+                keyClick(Qt.Key_Right);
+                equal(root.mixer.playing, false);
+            }
             function test_crossingAnotherSliderKeepsGrab() {
                 var a = controls.itemAt(0).focusItem, b = controls.itemAt(1).focusItem;
                 mousePress(a, 30, a.height / 2);
