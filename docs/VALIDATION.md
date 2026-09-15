@@ -1,7 +1,7 @@
 # Validation record
 
 Validated on 2026-09-15 with Omarchy package **4.0.3-1**, Quickshell **0.3.1-1**,
-Qt **6.11.2**, and Qt's FFmpeg backend. The installed source `version` file still
+Qt **6.11.2**, and Qt's native PipeWire audio backend. The installed source `version` file still
 said `4.0.0.alpha`; the package/runtime versions above identify the actual test
 environment. CI also validates against the official Omarchy shell at commit
 `6ea3215542fbb269dfe5c2be928e6144f9cb6466`.
@@ -11,19 +11,21 @@ environment. CI also validates against the official Omarchy shell at commit
 | Check | Result |
 | --- | --- |
 | Asset checksums and attribution coverage | All 10 pass |
-| Ogg decoding, duration and boundary discontinuities | All 10 pass |
-| Sum of decoded individual peaks | 0.8225; below full scale with all channels at maximum |
+| PCM WAV format, duration and boundary discontinuities | All 10 pass |
+| Sum of decoded individual peaks | 0.8049; below full scale with all channels at maximum |
 | Deterministic mixer model | 9 tests, including one simulated hour of drift |
 | Qt service integration | 6 scenarios: ten players and pause/resume; persistence; random/mute; error isolation; live edits; visible/audible drift |
-| Actual looping | Qt player crosses two boundaries during 64 seconds of playback |
+| Actual looping | Shared mixer plays through two boundaries during 64 seconds of playback |
 | Recorded loop continuity | 61-second interval, longest near-silent run 0.04 ms, no clipping |
+| Native stream count and recorded output | One stream with ten sounds, drift, one sound, pause/resume, and default-output removal/switch |
 | Manifest validation and QML analysis | Pass, no lint warnings |
 
-Integration tests explicitly route players to a temporary test device. Setting
-`PULSE_SINK` alone did not select Qt's device in this environment, so the tests
-choose the device via Qt Multimedia. Neither the tests nor the plugin change
-the user's default audio output. Loop capture excludes startup and shutdown
-silence and includes both 29.75-second white-noise boundaries.
+The test wrapper starts a private native PipeWire/WirePlumber server with
+hardware discovery disabled. Service and loop tests select a temporary output;
+the output test exercises the real default-device binding and changes/removes
+only its private server's devices. No desktop defaults are changed. Capture
+confirms nonzero signal during playback and silence while paused. Loop capture
+excludes startup/shutdown silence and includes both 29.75-second boundaries.
 
 The continuity recording tests the playback mechanism with continuous noise.
 The remaining files pass decoded boundary checks; this does not replace human
@@ -69,24 +71,39 @@ Fractional scaling, extended Bluetooth reconnection scenarios, other themes,
 replacement bars, and long-duration soak testing were not exhaustively tested.
 Runtime compatibility targets Omarchy's built-in bar and shared service API.
 
-## Resource sample and pause fix
+## Shared mixer and resource sample
 
-An isolated Qt test process sampled `/proc` CPU time and resident memory around
-three phases. It selected ten channels at 50%, master at 50%, with Randomize
-enabled. Values include the Qt test process, not just the plugin; this is a
-short local sample, not a cross-machine performance guarantee.
+Qt 6.11's native PipeWire `SoundEffect` implementation shares an audio engine
+for effects with the same output device and PCM format. The ten files are now
+mono 48 kHz, 16-bit PCM WAV. This uses Qt's existing mixer without a helper
+process, custom native module, or extra runtime package. Older Qt versions and
+other audio backends are outside this single-stream compatibility target.
+
+The maintainer chose restart-on-resume: Pause stops each voice and Play starts
+the recordings from the beginning. Volumes and Randomize preferences persist.
+Muting a channel also stops its voice. Disabled/removed plugin objects release
+the shared stream. A paused, loaded mixer may retain one silent stream.
+
+The native output test recorded exactly one stream in all six phases, including
+ten simultaneous voices, Randomize, and removal of the previous default sink.
+Three hundred milliseconds of recorded output in each playing phase had a
+nonzero peak below full scale; the paused capture was silent.
+
+An isolated Qt process measured `/proc` CPU and resident memory with all ten
+channels at 50%, master at 50%, and Randomize on. This short local sample
+includes the Qt test process; it is not a cross-machine performance guarantee.
 
 | Phase | CPU, percent of one core | Process RSS |
 | --- | ---: | ---: |
-| Before playback, 3 seconds | 0.33% | 113.26 MiB |
-| Ten channels with drift, 5 seconds | 12.00% | 129.13 MiB |
-| Paused, 3 seconds | 0.33% | 109.91 MiB |
+| Before playback, 3 seconds | 0.00% | 93.33 MiB |
+| Ten channels with drift, 5 seconds | 1.00% | 169.93 MiB |
+| Paused, 3 seconds | 0.67% | 169.93 MiB |
 
-Using `MediaPlayer.pause()` initially retained approximately 13.6% of one CPU
-core, including after settling. Murmur now stores playback position and calls
-`stop()` to release decoders, then seeks back when Play is pressed. The test
-suite asserts stopped native players, remembered position and successful resume.
-The random timer also stops while paused.
+The shared mixer caches decoded samples, trading more memory/disk space for
+lower playback CPU and one output. Shipped WAV files occupy 35.96 MiB; the
+previous Ogg assets occupied 3.61 MiB. The earlier MediaPlayer implementation
+sampled about 12% of one core with ten channels, but these are short samples
+rather than a controlled benchmark. The random timer stops while paused.
 
 Run the commands in the README to reproduce the functional checks. Full CI
 logs are available in the repository's Actions tab and attached to each PR.

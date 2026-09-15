@@ -8,8 +8,12 @@ Never edit packaged Omarchy files. Follow the installed shell contract.
 - Preserve the shared service: audio must not belong to a panel or monitor.
 - Persist user choices only, never random animation frames or playback state.
 - Every audio asset needs a source, exact license, attribution, and checksum.
+- Keep all sounds mono 48 kHz PCM16 WAV. Qt 6.11's native PipeWire backend
+  shares one SoundEffect mixer only when device and PCM formats match.
 - Run `python scripts/check_assets.py` and, when present,
   `node --test tests/model.test.cjs` and `scripts/check_qml.sh`.
+- For audio changes, run the service, output-count, and loop tests through
+  `scripts/with_test_audio.sh`. Never change desktop defaults for a test.
 - Include actual validation evidence in PRs. Do not claim listening, graphical,
   multi-monitor, or device tests that were not performed.
 - Keep the UI in English. Donations belong on GitHub, not in the panel.

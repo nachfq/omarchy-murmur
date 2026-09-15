@@ -9,9 +9,9 @@
     "license_url": "https://creativecommons.org/licenses/by/4.0/",
     "download": "https://raw.githubusercontent.com/rafaelmardojai/blanket/9d229d2be7cb6619135d55ff9e49926e40298686/data/resources/sounds/rain.ogg",
     "editor": "Porrumentzio (Blanket)",
-    "file": "assets/rain.ogg",
+    "file": "assets/rain.wav",
     "source_sha256": "b84c1daf259a24283be40b7663656d17676df4eb60c1e0332820570db891848a",
-    "sha256": "819f67cfc2b49f10622307c27d55951796afd16631250e46923bbabfcf9b0357"
+    "sha256": "8cd8400b08e11a3a27e27c45b04a277644a062b6874143a4b7e231394aac1f39"
   },
   {
     "id": "thunder",
@@ -23,9 +23,9 @@
     "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
     "download": "https://cdn.freesound.org/previews/141/141251_2051721-hq.mp3",
     "editor": "",
-    "file": "assets/thunder.ogg",
+    "file": "assets/thunder.wav",
     "source_sha256": "70d1fb554ea59a28446b5edb6cad137858ec06b998976aeefc03da930ff33635",
-    "sha256": "cad0e66e663b147ed4b752e87b5373c8553ea1c907844d5a0b1b06ccf8695aea"
+    "sha256": "4f5d579704be168ff8747b319cfbf2abd06c936f0d1c8935cc26e9e96a69211d"
   },
   {
     "id": "waves",
@@ -37,9 +37,9 @@
     "license_url": "https://creativecommons.org/licenses/by/4.0/",
     "download": "https://raw.githubusercontent.com/rafaelmardojai/blanket/9d229d2be7cb6619135d55ff9e49926e40298686/data/resources/sounds/waves.ogg",
     "editor": "Porrumentzio (Blanket)",
-    "file": "assets/waves.ogg",
+    "file": "assets/waves.wav",
     "source_sha256": "20e1aec7c7542f71645275871650881ea33bc92bd9816b243ea920bb1daa51a0",
-    "sha256": "2a1e3570c798d937305db63d4331c9b177352e4649589f5bea00cc1b95d351d8"
+    "sha256": "2306cf7f1a12c1ae7b6f1c324dce0c48854828e28782c5c64d93f38c033ae0bb"
   },
   {
     "id": "wind",
@@ -51,9 +51,9 @@
     "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
     "download": "https://raw.githubusercontent.com/rafaelmardojai/blanket/9d229d2be7cb6619135d55ff9e49926e40298686/data/resources/sounds/wind.ogg",
     "editor": "Porrumentzio (Blanket)",
-    "file": "assets/wind.ogg",
+    "file": "assets/wind.wav",
     "source_sha256": "cfdc81be69cd5f434ebfeb708bdf094725f3052d76691f550ff0e10eee3e32d2",
-    "sha256": "ccd7c1cc38e85c780ef361116f317ce6bbae494dbf8ecf165a350719fc02619b"
+    "sha256": "ece48e9bae1e6169890811b77a711fcc91007eb1903506300409bdc6b2aca745"
   },
   {
     "id": "fire",
@@ -65,9 +65,9 @@
     "license_url": "https://soundbible.com/1543-Fireplace.html",
     "download": "https://raw.githubusercontent.com/rafaelmardojai/blanket/9d229d2be7cb6619135d55ff9e49926e40298686/data/resources/sounds/fireplace.ogg",
     "editor": "",
-    "file": "assets/fire.ogg",
+    "file": "assets/fire.wav",
     "source_sha256": "a6395379a32c2dc30dd870c4571ded4a5311435aacfe354b3a82a9b3ab98620b",
-    "sha256": "b861dd7bad087d962f112e3bb47a556596695e3ebd972169805fdcbc3b9c55d4"
+    "sha256": "b61db3bfcbbac8a6befd299f14cd1860205e8c3fe1276e85cd9db8bd7e5f34c0"
   },
   {
     "id": "birds",
@@ -79,9 +79,9 @@
     "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
     "download": "https://raw.githubusercontent.com/rafaelmardojai/blanket/9d229d2be7cb6619135d55ff9e49926e40298686/data/resources/sounds/birds.ogg",
     "editor": "Porrumentzio (Blanket)",
-    "file": "assets/birds.ogg",
+    "file": "assets/birds.wav",
     "source_sha256": "e59b19c2a377d5835d07e7ec8f8c876b9f40ae7f703738b55d616ef96a1638b2",
-    "sha256": "69483b4d4689f912b482c62b3e9296028bae519a6cea7fe75d39deeaf379fbf7"
+    "sha256": "dfd79dfbc1e58b2367b6c77ba5535f8993d744c2ac8468c45bbac1ab10f3f82f"
   },
   {
     "id": "crickets",
@@ -93,9 +93,9 @@
     "license_url": "https://soundbible.com/2083-Crickets-Chirping-At-Night.html",
     "download": "https://raw.githubusercontent.com/rafaelmardojai/blanket/9d229d2be7cb6619135d55ff9e49926e40298686/data/resources/sounds/summer-night.ogg",
     "editor": "",
-    "file": "assets/crickets.ogg",
+    "file": "assets/crickets.wav",
     "source_sha256": "2eb2efb8f5c6733e74dc8546f2ecfac40407e8242a9eed96a72e0fc68790ac6f",
-    "sha256": "fcd696adcaa82e9045920266519abb16c2981c27ca962063b7c60543ae948c74"
+    "sha256": "6e846f1c1476353f24e5d119f304a57c1d6af4f7256caccf36ab2ed55f948174"
   },
   {
     "id": "coffee",
@@ -107,9 +107,9 @@
     "license_url": "https://soundbible.com/1664-Restaurant-Ambiance.html",
     "download": "https://raw.githubusercontent.com/rafaelmardojai/blanket/9d229d2be7cb6619135d55ff9e49926e40298686/data/resources/sounds/coffee-shop.ogg",
     "editor": "",
-    "file": "assets/coffee.ogg",
+    "file": "assets/coffee.wav",
     "source_sha256": "397b5d95f06df69ba2989147cf9c37a417b2dc5950c1a16fbe6be6fa372d25ef",
-    "sha256": "4bb24280d98d5aaecc8703e29068b5ccb10021f856a5779a63c8b9326c0547f8"
+    "sha256": "e43f645b6e9919dabd1b7fee6e94fe2704dd7c1f011e1ca6f681f0bd0252d93e"
   },
   {
     "id": "bowl",
@@ -121,9 +121,9 @@
     "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
     "download": "https://cdn.freesound.org/previews/169/169289_71257-hq.mp3",
     "editor": "qubodup, from Monkay https://freesound.org/people/Monkay/sounds/48325/ (also CC0)",
-    "file": "assets/bowl.ogg",
+    "file": "assets/bowl.wav",
     "source_sha256": "eda4fa984ad37c0ab0757f18c2001e8c8df2c7422ab575c6aba88fe5a49e4535",
-    "sha256": "7dcd2a476234b5cd15ca8a3829e94926ea39884cc2286a7d6b18ce4bbef383b9"
+    "sha256": "3bebb841957656df20d5c9fa84d282575db76bd6702cd5f7765eb105f7428640"
   },
   {
     "id": "noise",
@@ -135,8 +135,8 @@
     "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
     "download": "generated:python-random-seed-2026",
     "editor": "",
-    "file": "assets/noise.ogg",
+    "file": "assets/noise.wav",
     "source_sha256": "1e89c39b159f58951261aef9cf7deea0bdf0c0609c0762ba5bd0aea4a466c6c5",
-    "sha256": "61986de33db3a074f794b10c47e0cbdb50bf26a9f6f74391b06f83872c8b0544"
+    "sha256": "517eb6c6140a0567bfdf1385107dbfddf2517c08568fc767f8209e7426ba6b95"
   }
 ]
