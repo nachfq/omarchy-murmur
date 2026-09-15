@@ -25,6 +25,11 @@ Omarchy installs the files and asks before enabling; there are no install hooks,
 extra processes or runtime package downloads. If Qt Multimedia is missing,
 install the two packages with Omarchy's package manager before enabling.
 
+Murmur is a separate bar widget beside `omarchy.indicators`. It reuses the
+native indicator component and center-hover behavior. Omarchy 4.0.3's bundled
+indicator group loads only its built-in entries; it does not expose a plugin
+registration API for adding Murmur inside that group.
+
 ## Use
 
 - Hover the center of the bar to reveal Murmur's paused, dimmed wave icon
@@ -75,6 +80,9 @@ omarchy plugin remove nachfq.murmur
 ```
 
 Disabling or removing Murmur stops its audio. Code reloads also start paused.
+If an update leaves old icons or controls visible, run `omarchy restart shell`
+to reload all QML components. This restarts the desktop shell and pauses Murmur;
+saved volumes and Randomize are preserved.
 Murmur does not install services, modify system files, or leave audio processes
 running. A channel whose recording cannot load shows “Audio unavailable”; the
 remaining channels still work. Reinstall the plugin to restore a damaged file.

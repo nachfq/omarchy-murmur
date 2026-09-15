@@ -53,6 +53,14 @@ reveal/open/pause/close/reopen. This scenario uses a panel lifecycle stub:
 offscreen Quickshell has no layer-shell backend, so it does not test popup
 rendering or the compositor's physical hover detection.
 
+Follow-up desktop verification found that file-watch reload logs did not prove
+all dependent QML/JavaScript had refreshed: the user still saw old icons and
+the slider focus rectangle. After `omarchy restart shell`, a capture of the
+actual panel confirmed all three new glyphs and no added slider rectangle.
+The saved configuration was unchanged by the restart. The indicator remains
+a separate bar entry: the installed built-in group resolves only its own
+`../indicators/<name>.qml` files, without an external plugin registration API.
+
 ### Slider gesture regressions
 
 An offscreen Quickshell window reproduces two failures from the previous
