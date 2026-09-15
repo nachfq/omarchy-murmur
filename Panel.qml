@@ -55,7 +55,8 @@ Ui.Panel {
                         label: 'Master'
                         value: root.mixer ? root.mixer.master : 0
                         onEdited: function(value) { if (root.mixer) root.mixer.setMaster(value); }
-                        onCommitted: if (root.mixer) root.mixer.saveNow()
+                        onCommitted: if (root.mixer) root.mixer.scheduleSave()
+                        onDraggingChanged: if (root.mixer) root.mixer.holdMaster(dragging)
                     }
 
                     Ui.PanelSeparator { width: parent.width }
@@ -80,7 +81,7 @@ Ui.Panel {
                                 errorText: channel && root.mixer ? root.mixer.errors[channel.id] || '' : ''
                                 enabled: errorText === ''
                                 onEdited: function(value) { if (root.mixer) root.mixer.setLevel(index, value); }
-                                onCommitted: if (root.mixer) root.mixer.saveNow()
+                                onCommitted: if (root.mixer) root.mixer.scheduleSave()
                                 onDraggingChanged: if (root.mixer) root.mixer.hold(index, dragging)
                             }
                         }

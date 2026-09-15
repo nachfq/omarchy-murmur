@@ -13,6 +13,9 @@ Item {
     property var errors: ({})
     property var sourceSettings: ({})
     property string savedState: ""
+    property bool preferencesLoaded: false
+    property bool masterHeld: false
+    readonly property bool editing: masterHeld || channels.some(function(c) { return c.held; })
     readonly property bool canPlay: channels.some(function(c) { return c.base > 0 && !root.errors[c.id]; })
     readonly property bool settling: channels.some(function(c) { return c.duration > 0; })
     readonly property bool animating: drift.running
@@ -36,7 +39,13 @@ Item {
             var entries = layout[sections[s]] || [];
             for (var i = 0; i < entries.length; i++) {
                 if (entries[i].id === 'nachfq.murmur') {
-                    loadSettings(entries[i]);
+                    // The service owns the live mix. Config notifications may
+                    // echo older writes; they must never overwrite a gesture.
+                    sourceSettings = entries[i];
+                    if (!preferencesLoaded) {
+                        loadSettings(entries[i]);
+                        preferencesLoaded = true;
+                    }
                     return;
                 }
             }
@@ -45,6 +54,7 @@ Item {
 
     function saveNow() {
         saveTimer.stop();
+        if (editing) return;
         var prefs = Model.snapshot(master, channels, randomize);
         var encoded = JSON.stringify(prefs);
         if (encoded === savedState || !shell) return;
@@ -53,9 +63,19 @@ Item {
         shell.updateEntryInline('nachfq.murmur', entry);
     }
 
+    function scheduleSave() {
+        if (editing) saveTimer.stop();
+        else saveTimer.restart();
+    }
+
+    function holdMaster(held) {
+        masterHeld = held;
+        scheduleSave();
+    }
+
     function setMaster(value) {
         master = Model.volume(value, master);
-        saveTimer.restart();
+        scheduleSave();
     }
 
     function setLevel(index, value) {
@@ -64,7 +84,7 @@ Item {
         next[index] = Object.assign({}, next[index]);
         Model.setLevel(next[index], value);
         channels = next;
-        saveTimer.restart();
+        scheduleSave();
     }
 
     function hold(index, held) {
@@ -72,7 +92,7 @@ Item {
         var next = channels.slice();
         next[index] = Object.assign({}, next[index], {held: held});
         channels = next;
-        if (!held) saveNow();
+        scheduleSave();
     }
 
     function togglePlayback() {

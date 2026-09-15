@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Controls as Controls
 import qs.Ui as Ui
 import qs.Commons
 
@@ -10,7 +11,7 @@ Column {
     property string icon: ''
     property real value: 0
     property string errorText: ''
-    property alias dragging: slider.dragging
+    property alias dragging: slider.pressed
     property alias focusItem: slider
     signal edited(real value)
     signal committed()
@@ -40,7 +41,7 @@ Column {
             id: percent
             width: Style.space(36)
             horizontalAlignment: Text.AlignRight
-            text: root.errorText ? '!' : Math.round(slider.liveValue * 100) + '%'
+            text: root.errorText ? '!' : Math.round(slider.value * 100) + '%'
             color: root.bar ? root.bar.foreground : Color.foreground
             opacity: 0.6
             font.family: root.bar ? root.bar.fontFamily : root.fonts.family
@@ -48,19 +49,44 @@ Column {
         }
     }
 
-    Ui.PanelSlider {
+    Controls.Slider {
         id: slider
         width: parent.width
-        bar: root.bar
+        implicitHeight: appearance.implicitHeight
+        padding: 0
+        from: 0
+        to: 1
         value: root.value
-        step: 0.02
+        stepSize: 0
+        live: true
+        focusPolicy: Qt.StrongFocus
         activeFocusOnTab: root.enabled
-        onMoved: function(value) { root.edited(value); }
-        onReleased: root.committed()
+        // Qt owns pointer grabs, cancellation, touch and keyboard focus.
+        // Omarchy's PanelSlider supplies only the themed drawing.
+        onMoved: root.edited(value)
+        onPressedChanged: if (!pressed) root.committed()
+        handle: null
+        background: Ui.PanelSlider {
+            id: appearance
+            enabled: false
+            bar: root.bar
+            liveValue: slider.visualPosition
+            dragging: slider.pressed
+        }
 
         function adjust(delta) {
             root.edited(Math.max(0, Math.min(1, value + delta)));
             root.committed();
+        }
+        WheelHandler {
+            target: null
+            enabled: slider.activeFocus
+            acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
+            onWheel: function(event) {
+                if (event.angleDelta.y === 0) { event.accepted = false; return; }
+                slider.adjust(0.02 * event.angleDelta.y / 120);
+                event.accepted = true;
+            }
         }
         Keys.onLeftPressed: adjust(-0.02)
         Keys.onDownPressed: adjust(-0.02)

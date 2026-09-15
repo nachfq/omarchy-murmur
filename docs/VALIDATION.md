@@ -14,6 +14,7 @@ environment. CI also validates against the official Omarchy shell at commit
 | PCM WAV format, duration and boundary discontinuities | All 10 pass |
 | Sum of decoded individual peaks | 0.8049; below full scale with all channels at maximum |
 | Deterministic mixer model | 9 tests, including one simulated hour of drift |
+| Native slider gestures | 8 scenarios at scale 1 and 1.5, using actual Qt mouse/keyboard events and Omarchy drawing components |
 | Qt service integration | 6 scenarios: ten players and pause/resume; persistence; random/mute; error isolation; live edits; visible/audible drift |
 | Actual looping | Shared mixer plays through two boundaries during 64 seconds of playback |
 | Recorded loop continuity | 61-second interval, longest near-silent run 0.04 ms, no clipping |
@@ -32,6 +33,30 @@ The remaining files pass decoded boundary checks; this does not replace human
 listening to every recording or guarantee every audio backend is gapless.
 
 ## Desktop checks
+
+### Slider gesture regressions
+
+An offscreen Quickshell window reproduces two failures from the previous
+version with Randomize off: canceling a drag left `dragging` true, and replaying
+an older settings response reset an ongoing 85% edit to 30% and cleared its
+held state. Earlier tests inspected values and audio without driving real
+pointer sequences, so they did not cover these failures.
+
+`VolumeControl` now delegates input to Qt Quick Controls' standard `Slider`
+while using the installed Omarchy `PanelSlider` for drawing only. The new input
+path handles cancellation, pointer ownership and click-to-focus. Pointer
+movement is continuous; keyboard and focused-wheel adjustments use 2% steps.
+The service initializes preferences once, owns subsequent live state, and
+debounces writes after interactions. File notifications update preserved
+metadata without replacing the live mix; manual preference edits apply on
+shell reload.
+
+Eight tests cover every channel, crossing another slider while dragging,
+cancellation followed by hover, scroll interruption, stale settings during
+and after an edit, no writes during master/channel drags, keyboard/wheel focus,
+and Randomize while holding a slider. Both scale 1 and 1.5 pass. These tests
+use real controls in an offscreen window; they do not claim exhaustive testing
+of every physical mouse, touchpad, or Wayland popup interaction.
 
 ### Feedback regression checks
 

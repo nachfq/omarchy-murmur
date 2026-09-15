@@ -33,11 +33,13 @@ jobs:
         run: |
           bash "$OMARCHY_PATH/bin/omarchy-plugin-validate" .
           scripts/check_qml.sh
-      - name: Exercise real Qt playback on a private test sink
+      - name: Exercise native gestures and audio
         run: |
           useradd --create-home murmur-ci
           chown -R murmur-ci "$GITHUB_WORKSPACE"
           runuser -u murmur-ci -- scripts/with_test_audio.sh sh -eu -c '
+            python3 scripts/test_ui.py
+            QT_SCALE_FACTOR=1.5 python3 scripts/test_ui.py
             scripts/test_service.sh
             python3 scripts/test_output.py
             scripts/test_loops.sh
