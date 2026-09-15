@@ -60,15 +60,18 @@ Item {
 
     function setLevel(index, value) {
         if (index < 0 || index >= channels.length) return;
-        Model.setLevel(channels[index], value);
-        channels = channels.slice();
+        var next = channels.slice();
+        next[index] = Object.assign({}, next[index]);
+        Model.setLevel(next[index], value);
+        channels = next;
         saveTimer.restart();
     }
 
     function hold(index, held) {
         if (index < 0 || index >= channels.length) return;
-        channels[index].held = held;
-        channels = channels.slice();
+        var next = channels.slice();
+        next[index] = Object.assign({}, next[index], {held: held});
+        channels = next;
         if (!held) saveNow();
     }
 
@@ -79,11 +82,12 @@ Item {
 
     function toggleRandomize() {
         randomize = !randomize;
-        channels.forEach(function(c) {
+        channels = channels.map(function(channel) {
+            var c = Object.assign({}, channel);
             if (!root.randomize) Model.returnToBase(c, root.playing);
             else c.duration = 0;
+            return c;
         });
-        channels = channels.slice();
         saveNow();
     }
 
@@ -114,10 +118,13 @@ Item {
         repeat: true
         running: root.playing && root.canPlay && (root.randomize || root.settling)
         onTriggered: {
-            root.channels.forEach(function(c) {
+            // Delegates bind through a channel object. A new array alone
+            // does not notify bindings to that object's JS properties.
+            root.channels = root.channels.map(function(channel) {
+                var c = Object.assign({}, channel);
                 if (!root.errors[c.id]) Model.advance(c, interval / 1000, root.randomize, Math.random);
+                return c;
             });
-            root.channels = root.channels.slice();
         }
     }
 

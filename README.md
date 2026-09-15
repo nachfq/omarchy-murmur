@@ -20,7 +20,7 @@ omarchy bar move nachfq.murmur --section center --after omarchy.clock
 ```
 
 The install command uses the repository's default branch. During initial
-review, it becomes usable after the three implementation PRs are merged.
+review, it becomes usable after the implementation PRs are merged.
 Omarchy installs the files and asks before enabling; there are no install hooks,
 extra processes or runtime package downloads. If Qt Multimedia is missing,
 install the two packages with Omarchy's package manager before enabling.
@@ -32,7 +32,8 @@ install the two packages with Omarchy's package manager before enabling.
 - **Play / Pause** controls the whole mix. A channel at zero is off. With every
   channel off, Play is disabled until you raise one.
 - **Master** changes only Murmur. The operating system volume remains separate.
-- **Randomize** is a toggle; its filled appearance means it is on. Each active
+- **Randomize** shows On / Off; only On has a filled background. Hover and
+  keyboard focus use an outline. Drift runs during playback. Each active
   sound drifts within ±25% of its chosen volume over independent 15–30 second
   transitions. Zero-volume sounds stay off.
 - Sliders follow the audible mix. Dragging one sets a new base volume and
@@ -51,6 +52,10 @@ as with other Omarchy inline widget preferences.
 One shared audio service serves all bar instances. Audio follows the system's
 default output, including changes between headphones and speakers. Sounds are
 calibrated with fixed headroom so all ten can play together without clipping.
+
+If Play is active but silent, check both the selected output and the
+**Quickshell application volume** in Omarchy's audio panel. The system remembers
+that application volume separately from Murmur's master and channel sliders.
 
 ## Update and remove
 

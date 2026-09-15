@@ -39,6 +39,7 @@ Ui.Panel {
                 anchors.fill: parent
                 clip: true
                 contentHeight: content.implicitHeight
+                interactive: contentHeight > height
                 boundsBehavior: Flickable.StopAtBounds
 
                 Column {
@@ -96,6 +97,9 @@ Ui.Panel {
                             iconText: root.mixer && root.mixer.playing ? '󰏤' : '󰐊'
                             focusable: true
                             bordered: true
+                            // Hover and keyboard focus use the native outline;
+                            // a filled background is reserved for a toggle's On state.
+                            color: 'transparent'
                             enabled: root.mixer && root.mixer.canPlay
                             opacity: enabled ? 1 : 0.5
                             onClicked: root.mixer.togglePlayback()
@@ -105,12 +109,13 @@ Ui.Panel {
                         }
                         Ui.Button {
                             width: (parent.width - parent.spacing) / 2
-                            text: 'Randomize'
+                            text: selected ? 'Randomize: On' : 'Randomize: Off'
                             iconText: '󰒟'
                             focusable: true
                             bordered: true
                             selected: root.mixer ? root.mixer.randomize : false
-                            tooltipText: selected ? 'Gentle volume drift is on' : 'Gently vary active sounds'
+                            color: selected ? Style.selectedFillFor(foreground, accent) : 'transparent'
+                            tooltipText: selected ? (root.mixer && root.mixer.playing ? 'Gentle volume drift is on' : 'Volume drift is on — press Play to start') : 'Gently vary active sounds'
                             onClicked: root.mixer.toggleRandomize()
                             Accessible.role: Accessible.CheckBox
                             Accessible.name: 'Randomize'
