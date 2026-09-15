@@ -5,11 +5,13 @@ import qs.Commons
 
 Ui.Panel {
     id: root
-    moduleName: 'nachfq.murmur'
+    moduleName: 'nachfq.yuragi'
     manageIpc: false
     property Item anchorItem: null
     property var hostWidget: null
     property var mixer: null
+    readonly property var hostBar: bar
+    readonly property var fonts: Style.font
 
     function close() {
         masterControl.dragging = false;
@@ -128,19 +130,32 @@ Ui.Panel {
 
                     Item {
                         width: parent.width
-                        implicitHeight: githubButton.implicitHeight
+                        implicitHeight: Math.max(footerLabel.implicitHeight, githubButton.implicitHeight)
+                        Text {
+                            id: footerLabel
+                            anchors.left: parent.left
+                            anchors.verticalCenter: parent.verticalCenter
+                            width: parent.width - githubButton.width - Style.space(12)
+                            text: 'ゆらぎ · by nachfq for everyone'
+                            color: root.hostBar ? root.hostBar.foreground : Color.foreground
+                            opacity: 0.65
+                            font.family: root.hostBar ? root.hostBar.fontFamily : root.fonts.family
+                            font.pixelSize: root.fonts.bodySmall
+                            wrapMode: Text.WordWrap
+                        }
                         Ui.PanelActionButton {
                             id: githubButton
                             anchors.right: parent.right
+                            anchors.verticalCenter: parent.verticalCenter
                             iconText: ''
-                            tooltipText: 'View Murmur on GitHub'
+                            tooltipText: 'View Yuragi on GitHub'
                             focusable: true
                             onClicked: {
                                 root.close();
-                                Qt.openUrlExternally('https://github.com/nachfq/omarchy-murmur');
+                                Qt.openUrlExternally('https://github.com/nachfq/omarchy-yuragi');
                             }
                             Accessible.role: Accessible.Button
-                            Accessible.name: 'View Murmur on GitHub'
+                            Accessible.name: 'View Yuragi on GitHub'
                             Accessible.onPressAction: clicked()
                         }
                     }

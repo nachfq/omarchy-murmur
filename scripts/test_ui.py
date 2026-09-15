@@ -9,7 +9,7 @@ import tempfile
 
 root = Path(__file__).resolve().parent.parent
 shell = Path(os.environ.get('OMARCHY_PATH', '/usr/share/omarchy')) / 'shell'
-with tempfile.TemporaryDirectory(prefix='murmur-ui-') as directory:
+with tempfile.TemporaryDirectory(prefix='yuragi-ui-') as directory:
     fixture = Path(directory)
     # Quickshell's qs imports are rooted in its config directory. Copy the
     # installed/reference components unchanged; no desktop config is modified.
@@ -31,7 +31,7 @@ with tempfile.TemporaryDirectory(prefix='murmur-ui-') as directory:
         print((error.stdout or b'').decode(errors='replace'))
         raise
     print(result.stdout)
-    summaries = [line.split('MURMUR_UI_RESULT ', 1)[1] for line in result.stdout.splitlines() if 'MURMUR_UI_RESULT ' in line]
+    summaries = [line.split('YURAGI_UI_RESULT ', 1)[1] for line in result.stdout.splitlines() if 'YURAGI_UI_RESULT ' in line]
     assert result.returncode == 0 and len(summaries) == 1, 'UI fixture did not finish'
     counts = json.loads(summaries[0])
     assert counts['failed'] == 0 and counts['passed'] >= 10, counts

@@ -1,4 +1,4 @@
-# Publish Murmur
+# Publish Yuragi
 
 ## Release 1.0.0
 
@@ -22,9 +22,9 @@ has been sent on the maintainer's behalf.
 
 | Field | Value |
 | --- | --- |
-| Repository | https://github.com/nachfq/omarchy-murmur |
-| Name | Murmur |
-| Plugin ID | `nachfq.murmur` |
+| Repository | https://github.com/nachfq/omarchy-yuragi |
+| Name | Yuragi |
+| Plugin ID | `nachfq.yuragi` |
 | Author | Nacho fq |
 | Version | `1.0.0` |
 | Description | An offline ambient sound mixer with ten sounds and gentle volume drift. |
@@ -39,7 +39,7 @@ SHA required by the form; marketplace verification applies to that snapshot.
 
 ## Release notes
 
-Murmur brings ten offline ambient sounds to Omarchy's bar. Mix independent
+Yuragi brings ten offline ambient sounds to Omarchy's bar. Mix independent
 channel volumes with a dedicated master, pause/resume the whole mix, or turn
 on gentle Randomize drift. The compact panel follows your theme and supports
 keyboard controls. Preferences return paused after restarting the shell.

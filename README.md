@@ -1,8 +1,10 @@
-# Omarchy Murmur
+# Omarchy Yuragi
+
+**ゆらぎ · by nachfq for everyone**
 
 A small offline ambient sound mixer for Omarchy Shell.
 
-![Murmur's native mixer panel](preview.png)
+![Yuragi's native mixer panel](preview.png)
 
 Layer rain, thunder, waves, wind, fire, birds, crickets, coffee shop, singing
 bowl and white noise. Set each volume, press Play, and let Randomize gently
@@ -15,8 +17,8 @@ Requires **Omarchy 4 with Omarchy Shell**, Quickshell, and **Qt Multimedia 6.11+
 Quickshell 0.3.1 and Qt 6.11.2. Omarchy 3/Waybar is not supported.
 
 ```sh
-omarchy plugin add https://github.com/nachfq/omarchy-murmur.git --enable
-omarchy bar move nachfq.murmur --section center --before omarchy.clock
+omarchy plugin add https://github.com/nachfq/omarchy-yuragi.git --enable
+omarchy bar move nachfq.yuragi --section center --before omarchy.clock
 ```
 
 The install command uses the repository's default branch. During initial
@@ -25,21 +27,21 @@ Omarchy installs the files and asks before enabling; there are no install hooks,
 extra processes or runtime package downloads. If Qt Multimedia is missing,
 install the two packages with Omarchy's package manager before enabling.
 
-Murmur is a separate bar widget beside `omarchy.indicators`. It reuses the
+Yuragi is a separate bar widget beside `omarchy.indicators`. It reuses the
 native indicator component and center-hover behavior. Omarchy 4.0.3's bundled
 indicator group loads only its built-in entries; it does not expose a plugin
-registration API for adding Murmur inside that group.
+registration API for adding Yuragi inside that group.
 
 ## Use
 
-- Hover the center of the bar to reveal Murmur's paused, dimmed wave icon
+- Hover the center of the bar to reveal Yuragi's paused, dimmed wave icon
   before the clock. While playing, it stays visible in the normal theme color,
   like Omarchy's status indicators. An open panel keeps its icon visible.
 - Click the wave icon to open the panel. Click again, click
   outside, or press Escape to close it. Closing does not stop the sounds.
 - **Play / Pause** controls the whole mix. A channel at zero is off. With every
   channel off, Play is disabled until you raise one.
-- **Master** changes only Murmur. The operating system volume remains separate.
+- **Master** changes only Yuragi. The operating system volume remains separate.
 - **Randomize** shows On / Off; only On has a filled background. Hover and
   keyboard focus use an outline. Drift runs during playback. Each active
   sound drifts within ±25% of its chosen volume over independent 15–30 second
@@ -54,14 +56,14 @@ registration API for adding Murmur inside that group.
   browser. Closing the panel to follow the link keeps your mix playing.
 
 The first mix has rain at 40%, master at 50%, and Randomize off. Preferences are
-stored in Murmur's own bar entry in `~/.config/omarchy/shell.json`. Restarting
+stored in Yuragi's own bar entry in `~/.config/omarchy/shell.json`. Restarting
 the shell/session restores the mix **paused**. Random movement is not written
 to disk. Pause stops all voices. Play restarts the recordings from the beginning,
 keeping your volumes and Randomize setting. Removing the bar entry through disable/remove may discard its settings,
 as with other Omarchy inline widget preferences.
 
 The shared service owns the live mix. Changes are saved after you finish an
-interaction; delayed file notifications cannot rewind it. If you edit Murmur's
+interaction; delayed file notifications cannot rewind it. If you edit Yuragi's
 settings in `shell.json` by hand, reload the shell to apply them.
 
 One shared audio service serves all bar instances. Qt mixes all active sounds
@@ -71,21 +73,21 @@ calibrated with fixed headroom so all ten can play together without clipping.
 
 If Play is active but silent, check both the selected output and the
 **Quickshell application volume** in Omarchy's audio panel. The system remembers
-that application volume separately from Murmur's master and channel sliders.
+that application volume separately from Yuragi's master and channel sliders.
 
 ## Update and remove
 
 ```sh
-omarchy plugin update nachfq.murmur
-omarchy plugin disable nachfq.murmur
-omarchy plugin remove nachfq.murmur
+omarchy plugin update nachfq.yuragi
+omarchy plugin disable nachfq.yuragi
+omarchy plugin remove nachfq.yuragi
 ```
 
-Disabling or removing Murmur stops its audio. Code reloads also start paused.
+Disabling or removing Yuragi stops its audio. Code reloads also start paused.
 If an update leaves old icons or controls visible, run `omarchy restart shell`
-to reload all QML components. This restarts the desktop shell and pauses Murmur;
+to reload all QML components. This restarts the desktop shell and pauses Yuragi;
 saved volumes and Randomize are preserved.
-Murmur does not install services, modify system files, or leave audio processes
+Yuragi does not install services, modify system files, or leave audio processes
 running. A channel whose recording cannot load shows “Audio unavailable”; the
 remaining channels still work. Reinstall the plugin to restore a damaged file.
 
@@ -125,5 +127,5 @@ Thanks to the recording authors, Blanket's contributors, and Omarchy.
 
 ## Support
 
-Murmur is free. Bug reports and small improvements are welcome. A donation
+Yuragi is free. Bug reports and small improvements are welcome. A donation
 link may be added to this repository later; all features will remain free.

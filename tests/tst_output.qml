@@ -1,24 +1,24 @@
 import QtQuick
 import QtTest
 import QtMultimedia
-import '..' as Murmur
+import '..' as Yuragi
 
 TestCase {
     id: tests
-    name: 'MurmurOutput'
+    name: 'YuragiOutput'
     when: windowShown
     MediaDevices { id: devices }
-    Murmur.Service { id: mixer }
+    Yuragi.Service { id: mixer }
 
     function phase(name) {
         // Give the native stream time to connect before the runner counts it.
         wait(300);
-        console.log('MURMUR_OUTPUT_' + name);
+        console.log('YURAGI_OUTPUT_' + name);
         wait(3000);
     }
 
     function test_oneStreamAndDeviceChange() {
-        tryCompare(devices.defaultAudioOutput, 'description', 'MurmurOutputA');
+        tryCompare(devices.defaultAudioOutput, 'description', 'YuragiOutputA');
         for (var i = 0; i < 10; i++) mixer.setLevel(i, 0.5);
         mixer.togglePlayback();
         phase('TEN');
@@ -31,8 +31,8 @@ TestCase {
         mixer.togglePlayback();
         phase('RESUMED');
         // The runner changes its private server's default and removes A.
-        console.log('MURMUR_OUTPUT_SWITCH');
-        tryVerify(function() { return devices.defaultAudioOutput.description === 'MurmurOutputB'; });
+        console.log('YURAGI_OUTPUT_SWITCH');
+        tryVerify(function() { return devices.defaultAudioOutput.description === 'YuragiOutputB'; });
         phase('SWITCHED');
         mixer.playing = false;
     }

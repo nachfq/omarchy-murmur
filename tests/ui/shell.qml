@@ -11,7 +11,7 @@ ShellRoot {
     Component { id: service; Service {} }
     QtObject {
         id: fakeShell
-        property var barConfig: ({layout: {center: [{id: 'nachfq.murmur'}]}})
+        property var barConfig: ({layout: {center: [{id: 'nachfq.yuragi'}]}})
         property var writes: []
         function serviceFor(id) { return root.mixer; }
         function updateEntryInline(id, settings) {
@@ -23,8 +23,8 @@ ShellRoot {
     }
     Ui.PluginBarApi {
         id: fakeBar
-        pluginId: 'nachfq.murmur'
-        moduleName: 'nachfq.murmur'
+        pluginId: 'nachfq.yuragi'
+        moduleName: 'nachfq.yuragi'
         shell: fakeShell
         barSize: 32
         foreground: '#eeeeee'
@@ -80,12 +80,12 @@ ShellRoot {
             }
         }
         TestCase {
-            name: 'MurmurGestures'
+            name: 'YuragiGestures'
             when: true
             // Quickshell does not initialize qmltestrunner's logger. Export
             // QtTest's real counters so a failed gesture fails the runner.
             onCompletedChanged: if (completed)
-                console.log('MURMUR_UI_RESULT ' + JSON.stringify({passed: qtest_results.passCount, failed: qtest_results.failCount}))
+                console.log('YURAGI_UI_RESULT ' + JSON.stringify({passed: qtest_results.passCount, failed: qtest_results.failCount}))
             function equal(actual, expected) {
                 if (typeof actual === 'number' && typeof expected === 'number') {
                     if (Math.abs(actual - expected) > 0.000001)
@@ -97,7 +97,7 @@ ShellRoot {
                 }
             }
             function init() {
-                fakeShell.barConfig = {layout: {center: [{id: 'nachfq.murmur'}]}};
+                fakeShell.barConfig = {layout: {center: [{id: 'nachfq.yuragi'}]}};
                 fakeShell.writes = [];
                 root.mixer = createTemporaryObject(service, flick, {shell: fakeShell});
                 // These tests exercise input and model behavior. Audio has its
@@ -108,7 +108,7 @@ ShellRoot {
                 wait(50);
             }
             function cleanup() {
-                console.log('MURMUR_UI_CASE ' + qtest_results.functionName + ' failed=' + qtest_results.failed);
+                console.log('YURAGI_UI_CASE ' + qtest_results.functionName + ' failed=' + qtest_results.failed);
                 root.mixer.playing = false;
                 master.dragging = false;
                 for (var i = 0; i < 10; i++) controls.itemAt(i).dragging = false;

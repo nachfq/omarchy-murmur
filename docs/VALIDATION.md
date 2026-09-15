@@ -35,9 +35,19 @@ listening to every recording or guarantee every audio backend is gapless.
 
 ## Desktop checks
 
+### Yuragi naming and footer
+
+The installed plugin was moved to `nachfq.yuragi` and its inline bar ID was
+updated with the same saved settings and position. Comparing the configuration
+before and after confirmed that only the ID changed. A full shell restart
+loaded the new service and panel; a desktop capture confirmed the Japanese
+footer `ゆらぎ · by nachfq for everyone` and GitHub icon. `preview.png` is a
+crop of that live panel. Native service/output tests and gesture tests at
+scale 1 and 1.5 also passed with the renamed ID.
+
 ### Native UI polish
 
-Removed Murmur's added slider focus rectangle. Input still belongs to Qt's
+Removed Yuragi's added slider focus rectangle. Input still belongs to Qt's
 standard Slider. Birds, singing bowl and white noise now use Nerd Fonts'
 Material Design `bird`, `bowl-outline` and `waveform` glyphs; checked their
 rendering in the installed JetBrainsMono Nerd Font.

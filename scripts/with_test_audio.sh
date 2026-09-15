@@ -13,7 +13,7 @@ export QT_QPA_PLATFORM=offscreen
 export QT_QPA_PLATFORMTHEME=''
 export QT_QUICK_BACKEND=software
 export QT_AUDIO_BACKEND=pipewire
-export MURMUR_PRIVATE_AUDIO=1
+export YURAGI_PRIVATE_AUDIO=1
 unset WAYLAND_DISPLAY DISPLAY
 pids=()
 cleanup() {
