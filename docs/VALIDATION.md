@@ -14,7 +14,7 @@ environment. CI also validates against the official Omarchy shell at commit
 | Ogg decoding, duration and boundary discontinuities | All 10 pass |
 | Sum of decoded individual peaks | 0.8225; below full scale with all channels at maximum |
 | Deterministic mixer model | 9 tests, including one simulated hour of drift |
-| Qt service integration | 4 scenarios: ten players and pause/resume; persistence; random/mute; error isolation |
+| Qt service integration | 6 scenarios: ten players and pause/resume; persistence; random/mute; error isolation; live edits; visible/audible drift |
 | Actual looping | Qt player crosses two boundaries during 64 seconds of playback |
 | Recorded loop continuity | 61-second interval, longest near-silent run 0.04 ms, no clipping |
 | Manifest validation and QML analysis | Pass, no lint warnings |
@@ -30,6 +30,29 @@ The remaining files pass decoded boundary checks; this does not replace human
 listening to every recording or guarantee every audio backend is gapless.
 
 ## Desktop checks
+
+### Feedback regression checks
+
+The first integration tests read channel objects directly and missed stale
+delegate bindings. Added tests reproduce the real binding chain (channel
+object → displayed value) and inspect the native audio output while playing.
+Before the fix, editing 40% to 80% left the bound value at 40%, and Randomize
+failed to change the bound value. Both regressions now pass. Changed channels
+get new object identities so QML updates the sliders and audio gains.
+
+Live inspection also found orphaned output connections and a persisted
+WirePlumber application volume of zero for `media.name:quickshell`. Reloading
+the shell cleared the old connections; restoring that application volume
+produced nonzero audio on the Speaker monitor (3-second capture: peak 0.0700,
+RMS 0.0115). This was a local audio setting repair, not a runtime override of
+the user's system volume. The plugin's Qt output selection remains unchanged.
+A separate two-sink capture confirmed audio after removal of the first sink
+and explicit selection of the second. Bluetooth reconnection remains untested.
+
+The live panel shows `Randomize: On` / `Randomize: Off`; hover and focus retain
+native outlines without borrowing the selected background fill.
+
+### Initial desktop checks
 
 - Installed and enabled using Omarchy's plugin discovery, with the icon placed
   immediately after the clock and existing widget order preserved.

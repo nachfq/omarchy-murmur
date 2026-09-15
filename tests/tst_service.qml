@@ -9,6 +9,13 @@ TestCase {
     when: windowShown
     property var mixer: null
     MediaDevices { id: devices }
+    // Same binding chain as a slider/audio delegate: mutating a JS object
+    // without replacing it leaves this value stale even if the array changes.
+    QtObject {
+        id: view
+        readonly property var channel: tests.mixer ? tests.mixer.channels[0] : null
+        readonly property real value: channel ? channel.current : 0
+    }
 
     QtObject {
         id: fakeShell
@@ -57,6 +64,44 @@ TestCase {
         compare(other.channels[1].base, 0.2);
         compare(other.playing, false);
         compare(other.animating, false);
+    }
+
+    function test_editWhilePlayingUpdatesBindingsAndAudio() {
+        mixer.togglePlayback();
+        tryCompare(playerFor('rain'), 'playbackState', MediaPlayer.PlayingState);
+        mixer.setLevel(0, 0.8);
+        compare(view.value, 0.8);
+        tryCompare(playerFor('rain').audioOutput, 'volume', mixer.master * 0.8);
+        mixer.setLevel(1, 0.6);
+        tryCompare(playerFor('thunder'), 'playbackState', MediaPlayer.PlayingState);
+        mixer.setLevel(1, 0);
+        tryCompare(playerFor('thunder'), 'playbackState', MediaPlayer.StoppedState);
+        verify(mixer.playing);
+    }
+
+    function test_randomUpdatesBindingsAndAudio() {
+        mixer.togglePlayback();
+        mixer.toggleRandomize();
+        var initial = view.value;
+        // Fix this transition's target so the regression does not depend on
+        // Math.random happening to choose a noticeable change.
+        var next = mixer.channels.slice();
+        next[0] = Object.assign({}, next[0], {from: initial, target: 0.2, elapsed: 0, duration: 2});
+        mixer.channels = next;
+        tryVerify(function() { return Math.abs(view.value - initial) > 0.000001; }, 5000);
+        compare(view.value, mixer.channels[0].current);
+        compare(findChild(mixer, 'channel-rain').level, mixer.master * view.value);
+        mixer.hold(0, true);
+        var held = view.value;
+        wait(300);
+        compare(view.value, held);
+        tryVerify(function() { return Math.abs(playerFor('rain').audioOutput.volume - mixer.master * held) < 0.0001; });
+        mixer.setLevel(0, 0.7);
+        compare(view.value, 0.7);
+        mixer.hold(0, false);
+        wait(300);
+        mixer.toggleRandomize();
+        tryCompare(view, 'value', 0.7);
     }
 
     function test_allChannelsAndPause() {
