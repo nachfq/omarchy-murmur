@@ -8,13 +8,22 @@ Item {
     property real level: 0
     property bool requested: false
     property bool loaded: false
+    property int resumePosition: 0
+    property bool seekPending: false
     signal failed(string message)
 
     function syncPlayback() {
         if (requested) {
             loaded = true;
+            seekPending = !player.seekable;
+            if (!seekPending) player.position = resumePosition;
             player.play();
-        } else player.pause();
+        } else if (player.playbackState !== MediaPlayer.StoppedState) {
+            // Qt's paused FFmpeg players retain active decoder threads.
+            // Stop releases them; keep the position for the next Play.
+            resumePosition = player.position;
+            player.stop();
+        }
     }
 
     onRequestedChanged: syncPlayback()
@@ -38,7 +47,10 @@ Item {
         onMediaStatusChanged: {
             if (mediaStatus === MediaPlayer.LoadedMedia) {
                 root.failed('');
-                root.syncPlayback();
+                if (root.requested && root.seekPending) {
+                    player.position = root.resumePosition;
+                    root.seekPending = false;
+                }
             }
         }
     }

@@ -78,7 +78,14 @@ TestCase {
         wait(250);
         compare(mixer.channels[0].current, held);
         for (var k = 0; k < 10; k++)
-            tryCompare(playerFor(mixer.channels[k].id), 'playbackState', MediaPlayer.PausedState);
+            tryCompare(playerFor(mixer.channels[k].id), 'playbackState', MediaPlayer.StoppedState);
+        var savedPosition = findChild(mixer, 'channel-rain').resumePosition;
+        verify(savedPosition > 0);
+        mixer.togglePlayback();
+        tryVerify(function() {
+            var rain = playerFor('rain');
+            return rain.playbackState === MediaPlayer.PlayingState && rain.position >= savedPosition;
+        });
     }
 
     function test_randomDoesNotWriteAndMutedStaysOff() {
