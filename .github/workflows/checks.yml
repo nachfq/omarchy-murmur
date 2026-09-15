@@ -11,3 +11,38 @@ jobs:
       - uses: actions/checkout@v4
       - run: sudo apt-get update && sudo apt-get install -y ffmpeg
       - run: python3 scripts/check_assets.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test tests/model.test.cjs
+  qml:
+    runs-on: ubuntu-24.04
+    container: archlinux:base
+    env:
+      OMARCHY_PATH: /tmp/murmur-omarchy
+      QT_QUICK_BACKEND: software
+    steps:
+      - run: pacman -Syu --noconfirm git jq python ffmpeg qt6-declarative qt6-multimedia qt6-multimedia-ffmpeg quickshell pulseaudio
+      - uses: actions/checkout@v4
+      - name: Fetch the reference shell contract
+        run: |
+          git init "$OMARCHY_PATH"
+          git -C "$OMARCHY_PATH" fetch --depth=1 https://github.com/basecamp/omarchy.git 6ea3215542fbb269dfe5c2be928e6144f9cb6466
+          git -C "$OMARCHY_PATH" checkout --detach FETCH_HEAD
+      - name: Validate manifest and QML
+        run: |
+          bash "$OMARCHY_PATH/bin/omarchy-plugin-validate" .
+          scripts/check_qml.sh
+      - name: Exercise real Qt playback on a private test sink
+        run: |
+          useradd --create-home murmur-ci
+          mkdir -p /tmp/murmur-runtime
+          chown murmur-ci /tmp/murmur-runtime
+          chmod 700 /tmp/murmur-runtime
+          chown -R murmur-ci "$GITHUB_WORKSPACE"
+          runuser -u murmur-ci -- env XDG_RUNTIME_DIR=/tmp/murmur-runtime sh -eu -c '
+            pulseaudio --start --exit-idle-time=-1
+            trap "pulseaudio --kill" EXIT
+            scripts/test_service.sh
+            scripts/test_loops.sh
+          '
