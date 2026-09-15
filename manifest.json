@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "id": "nachfq.murmur",
+  "name": "Murmur",
+  "version": "1.0.0",
+  "author": "Nacho fq",
+  "license": "MIT",
+  "description": "An offline ambient sound mixer with ten sounds and gentle volume drift.",
+  "kinds": ["service", "bar-widget"],
+  "entryPoints": {"service": "Service.qml", "barWidget": "BarWidget.qml"},
+  "barWidget": {
+    "displayName": "Murmur",
+    "category": "Media",
+    "defaultSection": "center",
+    "allowMultiple": false
+  }
+}
