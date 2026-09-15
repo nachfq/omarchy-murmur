@@ -11,7 +11,7 @@ root = Path(__file__).resolve().parent.parent
 sounds = json.loads((root / 'assets/sources.json').read_text())
 assert len(sounds) == 10 and len({s['id'] for s in sounds}) == 10
 assert {s['id'] for s in sounds} == set('rain thunder waves wind fire birds crickets coffee bowl noise'.split())
-assert {p.name for p in (root / 'assets').glob('*.ogg')} == {Path(s['file']).name for s in sounds}
+assert {p.name for p in (root / 'assets').glob('*.wav')} == {Path(s['file']).name for s in sounds}
 credits = (root / 'SOUNDS_LICENSES.md').read_text()
 peaks = []
 for sound in sounds:
@@ -22,7 +22,7 @@ for sound in sounds:
         assert sound[key] and sound[key] in credits, (path, key)
     assert sound['license'] in ['CC0-1.0', 'CC-BY-4.0', 'Public Domain']
     meta = json.loads(subprocess.check_output(['ffprobe', '-v', 'error', '-show_streams', '-of', 'json', str(path)]))['streams'][0]
-    assert meta['codec_name'] == 'vorbis' and int(meta['sample_rate']) == 48000
+    assert meta['codec_name'] == 'pcm_s16le' and int(meta['sample_rate']) == 48000 and meta['channels'] == 1
     pcm = subprocess.check_output(['ffmpeg', '-v', 'error', '-i', str(path), '-f', 'f32le', '-'])
     samples = array.array('f')
     samples.frombytes(pcm)

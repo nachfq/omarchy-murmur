@@ -65,7 +65,7 @@ def main():
         # full scale without changing another track when a channel is muted.
         peak = max(abs(x) for x in samples)
         rms = math.sqrt(sum(x * x for x in samples) / len(samples))
-        # Noise needs extra margin for Vorbis reconstruction overshoot.
+        # Preserve the existing conservative headroom for noise.
         peak_budget = 0.04 if sound['id'] == 'noise' else 0.085
         gain = min(peak_budget / max(peak, 1e-9), 0.035 / max(rms, 1e-9))
         samples = array.array('f', (x * gain for x in samples))
@@ -74,7 +74,7 @@ def main():
         target = ROOT / sound['file']
         subprocess.run([
             'ffmpeg', '-y', '-v', 'error', '-f', 'f32le', '-ar', str(RATE),
-            '-ac', '1', '-i', '-', '-c:a', 'libvorbis', '-q:a', '5',
+            '-ac', '1', '-i', '-', '-c:a', 'pcm_s16le',
             '-map_metadata', '-1', '-metadata', f"title={sound['name']}",
             '-metadata', f"artist={sound['author']}", '-metadata',
             f"license={sound['license_url']}", str(target)

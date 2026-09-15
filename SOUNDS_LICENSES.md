@@ -8,16 +8,16 @@ redistribution license for its edited tracks.
 
 | File | Creator | Source | License | Prior edits |
 | --- | --- | --- | --- | --- |
-| `assets/rain.ogg` | alex36917 | [Rain](https://freesound.org/people/alex36917/sounds/524605/) | [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/) | Porrumentzio (Blanket) |
-| `assets/thunder.ogg` | OroborosNZ | [Thunder](https://freesound.org/people/OroborosNZ/sounds/141251/) | [CC0-1.0](https://creativecommons.org/publicdomain/zero/1.0/) | None |
-| `assets/waves.ogg` | Luftrum | [Waves](https://freesound.org/people/Luftrum/sounds/48412/) | [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/) | Porrumentzio (Blanket) |
-| `assets/wind.ogg` | felix.blume | [Wind](https://freesound.org/people/felix.blume/sounds/217506/) | [CC0-1.0](https://creativecommons.org/publicdomain/zero/1.0/) | Porrumentzio (Blanket) |
-| `assets/fire.ogg` | ezwa | [Fire](https://soundbible.com/1543-Fireplace.html) | [Public Domain](https://soundbible.com/1543-Fireplace.html) | None |
-| `assets/birds.ogg` | kvgarlic | [Birds](https://freesound.org/people/kvgarlic/sounds/156826/) | [CC0-1.0](https://creativecommons.org/publicdomain/zero/1.0/) | Porrumentzio (Blanket) |
-| `assets/crickets.ogg` | Lisa Redfern | [Crickets](https://soundbible.com/2083-Crickets-Chirping-At-Night.html) | [Public Domain](https://soundbible.com/2083-Crickets-Chirping-At-Night.html) | None |
-| `assets/coffee.ogg` | stephan | [Coffee shop](https://soundbible.com/1664-Restaurant-Ambiance.html) | [Public Domain](https://soundbible.com/1664-Restaurant-Ambiance.html) | None |
-| `assets/bowl.ogg` | Monkay; qubodup | [Singing bowl](https://freesound.org/people/qubodup/sounds/169289/) | [CC0-1.0](https://creativecommons.org/publicdomain/zero/1.0/) | qubodup, from Monkay https://freesound.org/people/Monkay/sounds/48325/ (also CC0) |
-| `assets/noise.ogg` | Nacho fq | [White noise](scripts/prepare_audio.py) | [CC0-1.0](https://creativecommons.org/publicdomain/zero/1.0/) | None |
+| `assets/rain.wav` | alex36917 | [Rain](https://freesound.org/people/alex36917/sounds/524605/) | [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/) | Porrumentzio (Blanket) |
+| `assets/thunder.wav` | OroborosNZ | [Thunder](https://freesound.org/people/OroborosNZ/sounds/141251/) | [CC0-1.0](https://creativecommons.org/publicdomain/zero/1.0/) | None |
+| `assets/waves.wav` | Luftrum | [Waves](https://freesound.org/people/Luftrum/sounds/48412/) | [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/) | Porrumentzio (Blanket) |
+| `assets/wind.wav` | felix.blume | [Wind](https://freesound.org/people/felix.blume/sounds/217506/) | [CC0-1.0](https://creativecommons.org/publicdomain/zero/1.0/) | Porrumentzio (Blanket) |
+| `assets/fire.wav` | ezwa | [Fire](https://soundbible.com/1543-Fireplace.html) | [Public Domain](https://soundbible.com/1543-Fireplace.html) | None |
+| `assets/birds.wav` | kvgarlic | [Birds](https://freesound.org/people/kvgarlic/sounds/156826/) | [CC0-1.0](https://creativecommons.org/publicdomain/zero/1.0/) | Porrumentzio (Blanket) |
+| `assets/crickets.wav` | Lisa Redfern | [Crickets](https://soundbible.com/2083-Crickets-Chirping-At-Night.html) | [Public Domain](https://soundbible.com/2083-Crickets-Chirping-At-Night.html) | None |
+| `assets/coffee.wav` | stephan | [Coffee shop](https://soundbible.com/1664-Restaurant-Ambiance.html) | [Public Domain](https://soundbible.com/1664-Restaurant-Ambiance.html) | None |
+| `assets/bowl.wav` | Monkay; qubodup | [Singing bowl](https://freesound.org/people/qubodup/sounds/169289/) | [CC0-1.0](https://creativecommons.org/publicdomain/zero/1.0/) | qubodup, from Monkay https://freesound.org/people/Monkay/sounds/48325/ (also CC0) |
+| `assets/noise.wav` | Nacho fq | [White noise](scripts/prepare_audio.py) | [CC0-1.0](https://creativecommons.org/publicdomain/zero/1.0/) | None |
 
 Source pages checked on 2026-09-15. The CC BY sources currently identify
 Attribution 4.0. Public Domain denotes the dedication on the linked SoundBible
@@ -35,7 +35,8 @@ generated locally with a fixed seed; we dedicate that recording to CC0.
 
 All files are converted to 48 kHz mono, trimmed to at most 60 seconds, given
 a 250 ms wrap crossfade, calibrated with a fixed per-track peak budget, and
-encoded as Ogg Vorbis quality 5. Prior edits by Porrumentzio and qubodup are
+encoded as mono 48 kHz, 16-bit PCM WAV. All tracks use the same PCM format
+so Qt can mix them through one output. Prior edits by Porrumentzio and qubodup are
 credited above. Neither creators nor projects endorse Murmur.
 
 Exact download URLs, original-input SHA-256 and shipped-file SHA-256 are in

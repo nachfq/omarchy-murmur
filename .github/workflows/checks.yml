@@ -22,7 +22,7 @@ jobs:
       OMARCHY_PATH: /tmp/murmur-omarchy
       QT_QUICK_BACKEND: software
     steps:
-      - run: pacman -Syu --noconfirm git jq python ffmpeg qt6-declarative qt6-multimedia qt6-multimedia-ffmpeg quickshell pulseaudio
+      - run: pacman -Syu --noconfirm git jq python ffmpeg qt6-declarative qt6-multimedia qt6-multimedia-ffmpeg quickshell pipewire pipewire-pulse wireplumber libpulse
       - uses: actions/checkout@v4
       - name: Fetch the reference shell contract
         run: |
@@ -36,13 +36,9 @@ jobs:
       - name: Exercise real Qt playback on a private test sink
         run: |
           useradd --create-home murmur-ci
-          mkdir -p /tmp/murmur-runtime
-          chown murmur-ci /tmp/murmur-runtime
-          chmod 700 /tmp/murmur-runtime
           chown -R murmur-ci "$GITHUB_WORKSPACE"
-          runuser -u murmur-ci -- env XDG_RUNTIME_DIR=/tmp/murmur-runtime sh -eu -c '
-            pulseaudio --start --exit-idle-time=-1
-            trap "pulseaudio --kill" EXIT
+          runuser -u murmur-ci -- scripts/with_test_audio.sh sh -eu -c '
             scripts/test_service.sh
+            python3 scripts/test_output.py
             scripts/test_loops.sh
           '

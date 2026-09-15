@@ -43,7 +43,7 @@ TestCase {
         verify(mixer !== null);
         tryVerify(function() { return devices.audioOutputs.some(function(d) { return d.description === 'MurmurTest'; }); });
         var output = devices.audioOutputs.filter(function(d) { return d.description === 'MurmurTest'; })[0];
-        for (var i = 0; i < 10; i++) playerFor(mixer.channels[i].id).audioOutput.device = output;
+        for (var i = 0; i < 10; i++) playerFor(mixer.channels[i].id).audioDevice = output;
     }
 
     function cleanup() {
@@ -68,14 +68,14 @@ TestCase {
 
     function test_editWhilePlayingUpdatesBindingsAndAudio() {
         mixer.togglePlayback();
-        tryCompare(playerFor('rain'), 'playbackState', MediaPlayer.PlayingState);
+        tryCompare(playerFor('rain'), 'playing', true);
         mixer.setLevel(0, 0.8);
         compare(view.value, 0.8);
-        tryCompare(playerFor('rain').audioOutput, 'volume', mixer.master * 0.8);
+        tryCompare(playerFor('rain'), 'volume', mixer.master * 0.8);
         mixer.setLevel(1, 0.6);
-        tryCompare(playerFor('thunder'), 'playbackState', MediaPlayer.PlayingState);
+        tryCompare(playerFor('thunder'), 'playing', true);
         mixer.setLevel(1, 0);
-        tryCompare(playerFor('thunder'), 'playbackState', MediaPlayer.StoppedState);
+        tryCompare(playerFor('thunder'), 'playing', false);
         verify(mixer.playing);
     }
 
@@ -95,7 +95,7 @@ TestCase {
         var held = view.value;
         wait(300);
         compare(view.value, held);
-        tryVerify(function() { return Math.abs(playerFor('rain').audioOutput.volume - mixer.master * held) < 0.0001; });
+        tryVerify(function() { return Math.abs(playerFor('rain').volume - mixer.master * held) < 0.0001; });
         mixer.setLevel(0, 0.7);
         compare(view.value, 0.7);
         mixer.hold(0, false);
@@ -110,31 +110,24 @@ TestCase {
         for (var j = 0; j < 10; j++) {
             var player = playerFor(mixer.channels[j].id);
             verify(player !== null);
-            tryCompare(player, 'playbackState', MediaPlayer.PlayingState, 15000);
-            compare(player.loops, MediaPlayer.Infinite);
+            tryCompare(player, 'playing', true, 15000);
+            compare(player.loops, SoundEffect.Infinite);
         }
         compare(Object.keys(mixer.errors).length, 0);
         mixer.toggleRandomize();
         verify(mixer.animating);
         wait(500);
-        // Seek well into the recording so restarting from zero cannot pass
-        // the resume assertion merely by playing for a few milliseconds.
-        playerFor('rain').position = 10000;
-        wait(100);
         mixer.togglePlayback();
         verify(!mixer.animating);
         var held = mixer.channels[0].current;
         wait(250);
         compare(mixer.channels[0].current, held);
         for (var k = 0; k < 10; k++)
-            tryCompare(playerFor(mixer.channels[k].id), 'playbackState', MediaPlayer.StoppedState);
-        var savedPosition = findChild(mixer, 'channel-rain').resumePosition;
-        verify(savedPosition >= 10000);
+            tryCompare(playerFor(mixer.channels[k].id), 'playing', false);
         mixer.togglePlayback();
-        tryVerify(function() {
-            var rain = playerFor('rain');
-            return rain.playbackState === MediaPlayer.PlayingState && rain.position >= savedPosition;
-        }, 1000);
+        // SoundEffect deliberately restarts each recording on resume.
+        for (var n = 0; n < 10; n++)
+            tryCompare(playerFor(mixer.channels[n].id), 'playing', true);
     }
 
     function test_randomDoesNotWriteAndMutedStaysOff() {

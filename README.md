@@ -10,7 +10,7 @@ change the mix while you work. Ten sounds, one panel, no account or connection.
 
 ## Install
 
-Requires **Omarchy 4 with Omarchy Shell**, Quickshell, and Qt Multimedia
+Requires **Omarchy 4 with Omarchy Shell**, Quickshell, and **Qt Multimedia 6.11+ with the native PipeWire audio backend**
 (`qt6-multimedia` and `qt6-multimedia-ffmpeg`). Tested on Omarchy 4.0.3,
 Quickshell 0.3.1 and Qt 6.11.2. Omarchy 3/Waybar is not supported.
 
@@ -45,11 +45,12 @@ install the two packages with Omarchy's package manager before enabling.
 The first mix has rain at 40%, master at 50%, and Randomize off. Preferences are
 stored in Murmur's own bar entry in `~/.config/omarchy/shell.json`. Restarting
 the shell/session restores the mix **paused**. Random movement is not written
-to disk. Pause remembers playback positions and releases decoders to avoid
-background CPU use. Removing the bar entry through disable/remove may discard its settings,
+to disk. Pause stops all voices. Play restarts the recordings from the beginning,
+keeping your volumes and Randomize setting. Removing the bar entry through disable/remove may discard its settings,
 as with other Omarchy inline widget preferences.
 
-One shared audio service serves all bar instances. Audio follows the system's
+One shared audio service serves all bar instances. Qt mixes all active sounds
+into a single system audio stream. Audio follows the system's
 default output, including changes between headphones and speakers. Sounds are
 calibrated with fixed headroom so all ten can play together without clipping.
 
@@ -80,12 +81,15 @@ python scripts/check_assets.py        # Python + ffmpeg
 node --test tests/model.test.cjs       # Node 22+
 omarchy plugin validate .
 scripts/check_qml.sh                  # Qt tools + installed Omarchy shell
-scripts/test_service.sh               # Qt tests + pactl / Pulse-compatible server
-scripts/test_loops.sh                 # ~70s real playback and silent-sink capture
+scripts/with_test_audio.sh scripts/test_service.sh
+scripts/with_test_audio.sh python3 scripts/test_output.py  # One stream + output changes
+scripts/with_test_audio.sh scripts/test_loops.sh           # ~70s loop capture
 ```
 
-The audio tests explicitly select their temporary output device and never
-change the system default. CI runs the same model, asset, QML and playback
+The audio test wrapper starts an isolated PipeWire/WirePlumber server with
+hardware discovery disabled. Device changes affect only that private server;
+your desktop output stays unchanged. Test tools require `pipewire-pulse`,
+`wireplumber`, `pactl`, and ffmpeg. CI runs the same model, asset, QML and playback
 checks. [Validation notes](docs/VALIDATION.md) distinguish automated evidence
 from desktop checks. Audio regeneration is documented in
 [SOUNDS_LICENSES.md](SOUNDS_LICENSES.md).
@@ -93,7 +97,7 @@ from desktop checks. Audio regeneration is documented in
 ## License and credits
 
 Code: [MIT](LICENSE). Audio: [individual licenses and credits](SOUNDS_LICENSES.md),
-with exact sources and checksums. Assets occupy approximately 3.6 MiB.
+with exact sources and checksums. Assets occupy approximately 36.0 MiB (uncompressed WAV for Qt’s shared mixer).
 
 Inspired by [A Soft Murmur](https://asoftmurmur.com/); independently implemented
 and not affiliated with its author. No files are extracted from that website.

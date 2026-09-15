@@ -31,7 +31,7 @@ has been sent on the maintainer's behalf.
 | Tags | audio, ambient, offline, bar, quickshell |
 | Preview | `preview.png` in the repository root |
 | License | MIT code; CC0, CC BY 4.0 and public-domain recordings, documented individually |
-| Runtime | Omarchy Shell / Quickshell, Qt Multimedia with FFmpeg backend |
+| Runtime | Omarchy Shell / Quickshell, Qt Multimedia 6.11+ with native PipeWire audio |
 | Network / privileges | None during playback; no install hooks or privileged commands |
 
 Select the form's current audio/media category. Submit the exact merged commit
