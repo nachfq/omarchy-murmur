@@ -12,7 +12,7 @@ TestCase {
 
     function phase(name) {
         // Give the native stream time to connect before the runner counts it.
-        wait(300);
+        wait(800);
         console.log('YURAGI_OUTPUT_' + name);
         wait(3000);
     }

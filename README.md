@@ -41,6 +41,8 @@ registration API for adding Yuragi inside that group.
   outside, or press Escape to close it. Closing does not stop the sounds.
 - **Play / Pause** controls the whole mix. A channel at zero is off. With every
   channel off, Play is disabled until you raise one.
+  Playback fades in and out over 600 ms. Clicking again during a fade reverses
+  it smoothly; the master and channel sliders keep their chosen values.
 - **Master** changes only Yuragi. The operating system volume remains separate.
 - **Randomize** shows On / Off; only On has a filled background. Hover and
   keyboard focus use an outline. Drift runs during playback. Each active
@@ -58,7 +60,8 @@ registration API for adding Yuragi inside that group.
 The first mix has rain at 40%, master at 50%, and Randomize off. Preferences are
 stored in Yuragi's own bar entry in `~/.config/omarchy/shell.json`. Restarting
 the shell/session restores the mix **paused**. Random movement is not written
-to disk. Pause stops all voices. Play restarts the recordings from the beginning,
+to disk. Pause fades out, stops all voices and releases decoded recordings.
+Play reloads and restarts the recordings from the beginning,
 keeping your volumes and Randomize setting. Removing the bar entry through disable/remove may discard its settings,
 as with other Omarchy inline widget preferences.
 
@@ -104,8 +107,10 @@ scripts/check_qml.sh                  # Qt tools + installed Omarchy shell
 python scripts/test_ui.py             # Native mouse/keyboard gestures, offscreen
 QT_SCALE_FACTOR=1.5 python scripts/test_ui.py
 scripts/with_test_audio.sh scripts/test_service.sh
+scripts/with_test_audio.sh python3 scripts/test_fades.py   # Recorded fade envelope
 scripts/with_test_audio.sh python3 scripts/test_output.py  # One stream + output changes
 scripts/with_test_audio.sh scripts/test_loops.sh           # ~70s loop capture
+scripts/with_test_audio.sh python3 scripts/measure_resources.py --output /tmp/yuragi-resources.json
 ```
 
 The audio test wrapper starts an isolated PipeWire/WirePlumber server with

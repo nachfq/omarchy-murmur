@@ -16,10 +16,11 @@ environment. CI also validates against the official Omarchy shell at commit
 | Deterministic mixer model | 9 tests, including one simulated hour of drift |
 | Native slider gestures | 8 scenarios at scale 1 and 1.5, using actual Qt mouse/keyboard events and Omarchy drawing components |
 | Native bar indicator | Hover reveal, click/reopen, playback opacity, stable anchor on Pause, reveal suppression, and vertical collapse at scale 1 and 1.5 |
-| Qt service integration | 6 scenarios: ten players and pause/resume; persistence; random/mute; error isolation; live edits; visible/audible drift |
+| Qt service integration | 7 scenarios: ten players and pause/resume; persistence; random/mute; error isolation; live edits; visible/audible drift; fade reversal and sample release |
 | Actual looping | Shared mixer plays through two boundaries during 64 seconds of playback |
-| Recorded loop continuity | 61-second interval, longest near-silent run 0.04 ms, no clipping |
+| Recorded loop continuity | 61-second interval, longest near-silent run 0.08 ms, no clipping |
 | Native stream count and recorded output | One stream with ten sounds, drift, one sound, pause/resume, and default-output removal/switch |
+| Playback fades | Captured noise ramps up/down before silence; rapid reversal and sample release checked against real SoundEffect state |
 | Manifest validation and QML analysis | Pass, no lint warnings |
 
 The test wrapper starts a private native PipeWire/WirePlumber server with
@@ -34,6 +35,21 @@ The remaining files pass decoded boundary checks; this does not replace human
 listening to every recording or guarantee every audio backend is gapless.
 
 ## Desktop checks
+
+### Playback fades
+
+Each voice fades over 600 ms after its sample becomes ready. Pause stops the
+voice only after its envelope reaches zero; reversing a pending fade starts
+from its current gain. The envelope is separate from user volumes, so
+master/channel preferences and sliders never move as a side effect. After the
+fade, normal volume changes use Qt's native 100 ms interpolation.
+
+`test_fades.py` records native output with the shipped noise sample. RMS over
+50 ms windows rises/falls gradually (0.40/0.45 s between 2% and 90% of plateau)
+and is silent after pause. These thresholds exclude the quiet ends of the
+600 ms curve. The service test also exercises quick Play/Pause reversal,
+cancellation while loading, and unloaded sources after fade-out. Recorded
+output-routing and two-loop-boundary tests still pass.
 
 ### Yuragi naming and footer
 
