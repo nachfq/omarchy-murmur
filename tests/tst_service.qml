@@ -159,4 +159,35 @@ TestCase {
         tryVerify(function() { return message.length > 0; }, 5000);
         bad.requested = false;
     }
+
+    function test_fadesReverseAndReleaseSamples() {
+        var voice = findChild(mixer, 'channel-rain');
+        var player = playerFor('rain');
+        mixer.togglePlayback();
+        tryCompare(player, 'status', SoundEffect.Ready);
+        tryVerify(function() { return voice.gain > 0 && voice.gain < 1; });
+        tryCompare(voice, 'gain', 1);
+        var base = mixer.channels[0].base;
+        mixer.togglePlayback();
+        verify(player.playing); // Audio stays alive while the button says Play.
+        wait(200);
+        verify(voice.gain > 0 && voice.gain < 1);
+        var partial = voice.gain;
+        mixer.togglePlayback();
+        compare(voice.gain, partial); // Reversal must not jump or restart at zero.
+        tryCompare(voice, 'gain', 1);
+        verify(player.playing);
+        mixer.togglePlayback();
+        tryCompare(player, 'playing', false);
+        compare(voice.gain, 0);
+        compare(voice.loaded, false);
+        compare(player.source.toString(), '');
+        compare(mixer.channels[0].base, base);
+        mixer.togglePlayback();
+        mixer.togglePlayback(); // Cancel even while a recording is loading.
+        wait(800);
+        verify(!player.playing);
+        compare(voice.gain, 0);
+        verify(!voice.loaded);
+    }
 }
