@@ -20,7 +20,7 @@ to add to the running Omarchy process, which already hosts Qt and other plugins.
 The desktop remained in ordinary use; CPU frequency and allocator/page residency
 were not fixed. Treat ranges as observations, not a universal benchmark.
 
-## Final implementation
+## Previous catalog (35.96 MiB)
 
 | State | CPU, one core | RSS, MiB | PSS, MiB |
 | --- | ---: | ---: | ---: |
@@ -53,7 +53,8 @@ interpolation remains in Qt rather than doing every animation frame in QML.
 CPU usage is small on this machine. Active sample RAM is material for a small
 utility, but predictable for ten uncompressed, preloaded recordings. The most
 useful low-complexity improvement was releasing it when unused; that is now
-implemented. The shipped audio still occupies about **36 MiB** on disk.
+implemented. At that point the shipped audio occupied about **36 MiB** on disk.
+The replacement catalog and its fresh measurements are recorded below.
 
 Further memory reductions would require shorter loops (more audible repetition)
 or a streaming/codec change (a different audio architecture). Neither is needed
@@ -67,3 +68,45 @@ runs. Reproduce with:
 ```sh
 scripts/with_test_audio.sh python3 scripts/measure_resources.py --output /tmp/yuragi-resources.json
 ```
+
+## Selected recordings (52.99 MiB)
+
+The new catalog replaces eight recordings, keeping crickets and white noise
+unchanged. Cropping the 425.25 MiB of supplied originals and converting to
+mono 48 kHz PCM16 yields **52.99 MiB** of audio. This is asset size, not the
+whole installed directory: Omarchy's Git installation also retains repository
+history. No raw original was added to the repository.
+
+Fresh before/after measurements use the same fixture and unchanged runtime,
+with two processes per catalog and **10-second** samples after each 3-second
+warmup. These shorter samples supplement the earlier 15-second measurements
+above. CPU is a percentage of one logical core. The table shows observed
+ranges, not guaranteed bounds; the desktop remained in ordinary use.
+
+| State | Previous RSS, MiB | New RSS, MiB | New PSS, MiB | New CPU, one core |
+| --- | ---: | ---: | ---: | ---: |
+| Ten sounds | 168.9–176.3 | 201.1–211.0 | 157.2–167.2 | 0.30–0.50% |
+| Ten + Randomize | 169.1–176.1 | 200.6–210.8 | 156.8–166.9 | 1.10–1.40% |
+| Paused afterward | 105.3–110.4 | 93.6–103.5 | 50.3–60.1 | below sample resolution |
+
+The larger active decoded buffers cost roughly 32–35 MiB more RSS in these
+runs. Pausing released about **107 MiB** relative to the immediately preceding
+Randomize phase. Lower paused RSS is not a new optimization: the runtime is
+unchanged, and allocator/mapped-page residency varies between processes.
+
+CPU remains small in this sample, while active RAM is a meaningful cost for
+longer preloaded recordings. The 55 MiB asset guard limits future accidental
+growth. Further active-memory savings still require shorter audio or a new
+streaming engine; compression alone does not shrink decoded samples. Paused
+channels continue to unload their samples, and one native output is preserved.
+
+[Raw before/after data and prepared-asset measurements](audio-selection-measurements.json)
+include the actual sample lengths and decoded seam checks. No subjective
+listening, battery, additional-machine or popup-rendering result is implied.
+
+### Approved loudness calibration
+
+The selected-recording resource measurements above preceded the seven-channel
+loudness adjustment. That adjustment changes only PCM sample values: durations,
+formats, total bytes and runtime code are identical. No new CPU/RAM measurement
+is claimed for the calibrated files.

@@ -1,0 +1,262 @@
+{
+  "date": "2026-09-15",
+  "method": "Two fresh isolated Quickshell processes per catalog; private PipeWire null sink; 3 s warmup and 10 s CPU samples per state; no panel; ordinary desktop activity, uncontrolled allocator/residency. Runtime code unchanged from 12aa5f05259b401588bc7a5b71f447128ed7944c.",
+  "before": [
+    {
+      "empty": {
+        "rss_mib": 59.21,
+        "pss_mib": 31.56,
+        "cpu_percent_one_core": 0.0,
+        "seconds": 10.51
+      },
+      "idle": {
+        "rss_mib": 113.02,
+        "pss_mib": 69.87,
+        "cpu_percent_one_core": 0.0,
+        "seconds": 10.0
+      },
+      "rain": {
+        "rss_mib": 125.64,
+        "pss_mib": 81.82,
+        "cpu_percent_one_core": 0.3,
+        "seconds": 10.0
+      },
+      "ten": {
+        "rss_mib": 168.91,
+        "pss_mib": 125.11,
+        "cpu_percent_one_core": 0.4,
+        "seconds": 10.0
+      },
+      "randomize": {
+        "rss_mib": 169.05,
+        "pss_mib": 125.24,
+        "cpu_percent_one_core": 1.199,
+        "seconds": 10.0
+      },
+      "paused": {
+        "rss_mib": 105.31,
+        "pss_mib": 62.03,
+        "cpu_percent_one_core": 0.0,
+        "seconds": 10.35
+      }
+    },
+    {
+      "empty": {
+        "rss_mib": 55.48,
+        "pss_mib": 27.8,
+        "cpu_percent_one_core": 0.0,
+        "seconds": 10.01
+      },
+      "idle": {
+        "rss_mib": 106.94,
+        "pss_mib": 63.76,
+        "cpu_percent_one_core": 0.095,
+        "seconds": 10.51
+      },
+      "rain": {
+        "rss_mib": 111.41,
+        "pss_mib": 67.59,
+        "cpu_percent_one_core": 0.4,
+        "seconds": 10.0
+      },
+      "ten": {
+        "rss_mib": 176.34,
+        "pss_mib": 132.47,
+        "cpu_percent_one_core": 0.499,
+        "seconds": 10.01
+      },
+      "randomize": {
+        "rss_mib": 176.12,
+        "pss_mib": 132.3,
+        "cpu_percent_one_core": 1.599,
+        "seconds": 10.01
+      },
+      "paused": {
+        "rss_mib": 110.38,
+        "pss_mib": 67.03,
+        "cpu_percent_one_core": 0.0,
+        "seconds": 10.0
+      }
+    }
+  ],
+  "after": [
+    {
+      "empty": {
+        "rss_mib": 53.4,
+        "pss_mib": 25.7,
+        "cpu_percent_one_core": 0.1,
+        "seconds": 10.0
+      },
+      "idle": {
+        "rss_mib": 105.13,
+        "pss_mib": 61.96,
+        "cpu_percent_one_core": 0.0,
+        "seconds": 10.0
+      },
+      "rain": {
+        "rss_mib": 123.36,
+        "pss_mib": 79.53,
+        "cpu_percent_one_core": 0.192,
+        "seconds": 10.41
+      },
+      "ten": {
+        "rss_mib": 201.07,
+        "pss_mib": 157.24,
+        "cpu_percent_one_core": 0.3,
+        "seconds": 10.0
+      },
+      "randomize": {
+        "rss_mib": 200.58,
+        "pss_mib": 156.75,
+        "cpu_percent_one_core": 1.099,
+        "seconds": 10.01
+      },
+      "paused": {
+        "rss_mib": 93.62,
+        "pss_mib": 50.26,
+        "cpu_percent_one_core": 0.0,
+        "seconds": 10.0
+      }
+    },
+    {
+      "empty": {
+        "rss_mib": 55.5,
+        "pss_mib": 27.83,
+        "cpu_percent_one_core": 0.0,
+        "seconds": 10.49
+      },
+      "idle": {
+        "rss_mib": 111.66,
+        "pss_mib": 68.49,
+        "cpu_percent_one_core": 0.0,
+        "seconds": 10.0
+      },
+      "rain": {
+        "rss_mib": 115.06,
+        "pss_mib": 71.23,
+        "cpu_percent_one_core": 0.3,
+        "seconds": 10.0
+      },
+      "ten": {
+        "rss_mib": 210.98,
+        "pss_mib": 167.16,
+        "cpu_percent_one_core": 0.5,
+        "seconds": 10.0
+      },
+      "randomize": {
+        "rss_mib": 210.77,
+        "pss_mib": 166.94,
+        "cpu_percent_one_core": 1.399,
+        "seconds": 10.01
+      },
+      "paused": {
+        "rss_mib": 103.49,
+        "pss_mib": 60.14,
+        "cpu_percent_one_core": 0.0,
+        "seconds": 10.38
+      }
+    }
+  ],
+  "prepared_assets": [
+    {
+      "id": "rain",
+      "seconds": 60.0,
+      "bytes": 5760112,
+      "peak": 0.084991455078125,
+      "rms": 0.007186571123673767,
+      "seam_jump": 0.000396728515625,
+      "seam_rms_before": 0.0030579906393134472,
+      "seam_rms_after": 0.003133475493962377
+    },
+    {
+      "id": "thunder",
+      "seconds": 120.0,
+      "bytes": 11520110,
+      "peak": 0.084991455078125,
+      "rms": 0.003237415560504408,
+      "seam_jump": 3.0517578125e-05,
+      "seam_rms_before": 0.0018300910639330922,
+      "seam_rms_after": 0.0011398794597340116
+    },
+    {
+      "id": "waves",
+      "seconds": 60.0,
+      "bytes": 5760132,
+      "peak": 0.084991455078125,
+      "rms": 0.005408981738446535,
+      "seam_jump": 0.000152587890625,
+      "seam_rms_before": 0.0040153415715351755,
+      "seam_rms_after": 0.004496729518066285
+    },
+    {
+      "id": "wind",
+      "seconds": 45.0,
+      "bytes": 4320118,
+      "peak": 0.084991455078125,
+      "rms": 0.00502039646578331,
+      "seam_jump": 3.0517578125e-05,
+      "seam_rms_before": 0.0033526565296626,
+      "seam_rms_after": 0.0033915279817787075
+    },
+    {
+      "id": "fire",
+      "seconds": 60.0,
+      "bytes": 5760108,
+      "peak": 0.084991455078125,
+      "rms": 0.001324819199244764,
+      "seam_jump": 9.1552734375e-05,
+      "seam_rms_before": 0.00021062656727442603,
+      "seam_rms_after": 0.0001154066242429214
+    },
+    {
+      "id": "birds",
+      "seconds": 60.0,
+      "bytes": 5760114,
+      "peak": 0.084991455078125,
+      "rms": 0.007293875862013203,
+      "seam_jump": 0.007171630859375,
+      "seam_rms_before": 0.011354839568698238,
+      "seam_rms_after": 0.010328471613423235
+    },
+    {
+      "id": "crickets",
+      "seconds": 49.07064583333333,
+      "bytes": 4710900,
+      "peak": 0.084991455078125,
+      "rms": 0.012092508120896139,
+      "seam_jump": 0.000946044921875,
+      "seam_rms_before": 0.005121234114756712,
+      "seam_rms_after": 0.004993580893135954
+    },
+    {
+      "id": "coffee",
+      "seconds": 55.0,
+      "bytes": 5280114,
+      "peak": 0.084991455078125,
+      "rms": 0.00994704418778918,
+      "seam_jump": 0.000762939453125,
+      "seam_rms_before": 0.012105149070406555,
+      "seam_rms_after": 0.01164258906837164
+    },
+    {
+      "id": "bowl",
+      "seconds": 40.0,
+      "bytes": 3840116,
+      "peak": 0.084991455078125,
+      "rms": 0.007790546203868346,
+      "seam_jump": 0.000152587890625,
+      "seam_rms_before": 0.005273597123973864,
+      "seam_rms_after": 0.0037990770334011574
+    },
+    {
+      "id": "noise",
+      "seconds": 29.75,
+      "bytes": 2856116,
+      "peak": 0.040008544921875,
+      "rms": 0.023054438032597553,
+      "seam_jump": 0.06915283203125,
+      "seam_rms_before": 0.0231864686107484,
+      "seam_rms_after": 0.019526701392558365
+    }
+  ]
+}

@@ -12,7 +12,7 @@ environment. CI also validates against the official Omarchy shell at commit
 | --- | --- |
 | Asset checksums and attribution coverage | All 10 pass |
 | PCM WAV format, duration and boundary discontinuities | All 10 pass |
-| Sum of decoded individual peaks | 0.8049; below full scale with all channels at maximum |
+| Sum of decoded individual peaks | 0.7291; below full scale with all channels at maximum |
 | Deterministic mixer model | 9 tests, including one simulated hour of drift |
 | Native slider gestures | 9 scenarios at scale 1 and 1.5, using actual Qt mouse/keyboard events and Omarchy drawing components |
 | Native bar indicator | Hover reveal, click/reopen, playback opacity, stable anchor on Pause, reveal suppression, and vertical collapse at scale 1 and 1.5 |
@@ -217,3 +217,63 @@ starts playback automatically. Editing a manually paused, nonempty mix keeps
 it paused, as does restoring saved settings. Service tests cover those cases;
 native slider tests reach zero with Home and raise a channel with an arrow key
 at scales 1 and 1.5. Play remains disabled while all channels are zero.
+
+## Selected original recordings (before loudness calibration)
+
+Eight recordings were replaced from the maintainer's downloaded originals:
+seven WAVs and courter's 256 kbps MP3. All eight are identified as CC0 on their
+source pages; the two upstream recordings in the selected wave composite were
+also checked and credited. Original-input and prepared-output SHA-256 values
+are pinned in `assets/sources.json`. Crickets and white noise retain their
+previous hashes and bytes.
+
+The eight crops start at zero, with 1–2 second wrap overlaps and final lengths
+of 40–120 seconds. The complete catalog is 55,567,940 bytes (**52.99 MiB**).
+Asset validation checks exact prepared lengths, mono 48 kHz PCM16, credits,
+checksums, boundary discontinuities and the conservative sum of peaks (0.8049).
+A 55 MiB budget catches accidental inclusion of full originals.
+
+Local service integration (11 passes), recorded fades, mute continuity,
+one-output/device-switch capture and loop capture all passed with the new
+catalog. The loop capture still uses unchanged continuous white noise: over
+61 seconds and two boundaries its longest near-silent run was 0.10 ms, without
+clipping. New recording boundaries are checked on decoded samples, not by
+claiming a real-time capture of every new loop. Native playback tests do not
+constitute a subjective assessment of audio quality or perceived loop seams.
+
+The preparation helper also passed an isolated 65-second crop/1-second overlap
+fixture: the resulting WAV was exactly 64 seconds and an unselected file and
+catalog entry were untouched. Its original defaults regenerated all previous
+assets with identical hashes before the replacements were made.
+
+The source recordings were selected by the maintainer's listening. The later
+local loudness trial was also approved by the maintainer (see below). Automated
+checks do not assess subjective audio quality. See [resource measurements](PERFORMANCE.md)
+for the measured memory cost of the longer recordings.
+
+## Approved loudness calibration
+
+On 2026-09-15 the maintainer approved the local seven-channel audition. Rain,
+waves, wind, birds, coffee, bowl and white noise now measure −42.00 to −42.12 LUFS;
+thunder, fire and crickets are excluded. See [measurements](loudness.json).
+`prepare_audio.py --record` regenerated all ten files from the original inputs
+with bytes identical to the approved audition. The three excluded WAVs remain
+identical to commit `06548cb`. Durations, total bytes and runtime code are unchanged.
+
+Validation after integration, using Qt 6.11.2 and Omarchy 4.0.3:
+
+- Ten asset checks, nine model tests, QML lint and manifest validation passed.
+  Asset checks now verify loudness within 0.3 LU of each configured target;
+  the conservative sum of individual sample peaks is 0.7291.
+- Private PipeWire wrapper: service 11 passes; fade 3 passes, captured ramps
+  0.40 s in / 0.45 s out and silence after pause; mute/re-enable twice without
+  a reference restart, longest near-silent run 0.02 ms.
+- One output across ten channels, drift, a single channel, pause/resume and
+  isolated default-device switching; output suite 3 passes.
+- Loop suite 3 passes; 61 s captured across two continuous-noise boundaries,
+  longest near-silent run 5.98 ms and no clipping. This is not a real-time
+  capture of every natural recording's seam.
+
+The audio suite ran through `scripts/with_test_audio.sh` without changing desktop
+audio defaults. No new local UI, physical-device or additional-machine test is
+claimed for this asset-only adjustment; CI also exercises native UI gestures.
