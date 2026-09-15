@@ -2,16 +2,12 @@
 
 ## Release 1.0.0
 
-Merge the stacked implementation and follow-up PRs from their oldest base
-to the newest feature (including Yuragi's rename and playback fades).
-This repository uses merge commits and deletes merged branches automatically.
-That preserves the stacked commits and lets GitHub retarget each dependent PR
-to `main` when its base branch is deleted. Check the base shown before merging.
-CI must pass on the final combined commit. The maintainer performs all merges.
-See [GitHub's branch handling](https://docs.github.com/en/pull-requests/how-tos/commit-changes/managing-branches-within-your-repository).
+The initial ten PRs are merged into `main`; the final combined commit
+`4902e0818f4382658e2f1600625ebe00ccf8fd38` passed CI on 2026-09-15.
+Future changes should stay in focused PRs for maintainer review and merge.
 
-After the final merge, an agent can tag that merged commit `v1.0.0` and create
-a GitHub release. Do not publish a tag from an unmerged feature branch.
+A release can be tagged `v1.0.0` from a validated commit on `main`.
+Do not publish a tag from an unmerged feature branch.
 Use the release notes below; validate installation from the public default
 branch before requesting the marketplace listing.
 
@@ -48,8 +44,8 @@ privileged operations or network access during playback. The GitHub footer
 button opens the repository only when clicked. Sound sources and licenses are
 documented in SOUNDS_LICENSES.md.”
 
-Still required: human merges, a clean install/remove check from the merged
-default branch, and submission/review. A `v1.0.0` release is our release step,
+Still required: a clean install/remove check from the merged default branch,
+and submission/review. A `v1.0.0` release is our release step,
 not a requirement listed in the marketplace guide. Donation setup is optional
 and does not block listing.
 
@@ -65,6 +61,10 @@ Recordings include rain, thunder, waves, wind, fire, birds, crickets, coffee
 shop, singing bowl and white noise, with individual credits and licenses.
 
 ## Donations
+
+GitHub Sponsors onboarding was submitted by the maintainer and is awaiting
+review as of 2026-09-15. Keep the README’s Support section prominent; add the
+funding link there once the listing is active.
 
 When the maintainer supplies a real payment URL, add it to the README's Support
 section and `.github/FUNDING.yml` using the matching provider key or `custom`.

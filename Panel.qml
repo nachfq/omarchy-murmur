@@ -148,14 +148,14 @@ Ui.Panel {
                             anchors.right: parent.right
                             anchors.verticalCenter: parent.verticalCenter
                             iconText: ''
-                            tooltipText: 'View Yuragi on GitHub'
+                            tooltipText: 'Support Yuragi on GitHub'
                             focusable: true
                             onClicked: {
                                 root.close();
                                 Qt.openUrlExternally('https://github.com/nachfq/omarchy-yuragi');
                             }
                             Accessible.role: Accessible.Button
-                            Accessible.name: 'View Yuragi on GitHub'
+                            Accessible.name: 'Support Yuragi on GitHub'
                             Accessible.onPressAction: clicked()
                         }
                     }
