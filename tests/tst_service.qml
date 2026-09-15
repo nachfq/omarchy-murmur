@@ -72,6 +72,10 @@ TestCase {
         mixer.toggleRandomize();
         verify(mixer.animating);
         wait(500);
+        // Seek well into the recording so restarting from zero cannot pass
+        // the resume assertion merely by playing for a few milliseconds.
+        playerFor('rain').position = 10000;
+        wait(100);
         mixer.togglePlayback();
         verify(!mixer.animating);
         var held = mixer.channels[0].current;
@@ -80,12 +84,12 @@ TestCase {
         for (var k = 0; k < 10; k++)
             tryCompare(playerFor(mixer.channels[k].id), 'playbackState', MediaPlayer.StoppedState);
         var savedPosition = findChild(mixer, 'channel-rain').resumePosition;
-        verify(savedPosition > 0);
+        verify(savedPosition >= 10000);
         mixer.togglePlayback();
         tryVerify(function() {
             var rain = playerFor('rain');
             return rain.playbackState === MediaPlayer.PlayingState && rain.position >= savedPosition;
-        });
+        }, 1000);
     }
 
     function test_randomDoesNotWriteAndMutedStaysOff() {
