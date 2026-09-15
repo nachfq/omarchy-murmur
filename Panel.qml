@@ -125,6 +125,25 @@ Ui.Panel {
                             Accessible.onToggleAction: clicked()
                         }
                     }
+
+                    Item {
+                        width: parent.width
+                        implicitHeight: githubButton.implicitHeight
+                        Ui.PanelActionButton {
+                            id: githubButton
+                            anchors.right: parent.right
+                            iconText: ''
+                            tooltipText: 'View Murmur on GitHub'
+                            focusable: true
+                            onClicked: {
+                                root.close();
+                                Qt.openUrlExternally('https://github.com/nachfq/omarchy-murmur');
+                            }
+                            Accessible.role: Accessible.Button
+                            Accessible.name: 'View Murmur on GitHub'
+                            Accessible.onPressAction: clicked()
+                        }
+                    }
                 }
             }
         }

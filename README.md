@@ -50,6 +50,8 @@ registration API for adding Murmur inside that group.
 - Tab / Shift+Tab move through controls. Arrow keys adjust the focused slider;
   Home / End set zero / full volume. Space or Enter activates a focused button.
   Clicking a slider focuses it; its mouse wheel then adjusts that slider.
+- The GitHub icon at the bottom right opens this repository in your default
+  browser. Closing the panel to follow the link keeps your mix playing.
 
 The first mix has rain at 40%, master at 50%, and Randomize off. Preferences are
 stored in Murmur's own bar entry in `~/.config/omarchy/shell.json`. Restarting
