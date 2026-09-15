@@ -7,6 +7,7 @@
 - [Troubleshooting](TROUBLESHOOTING.md) — silent playback, missing audio and stale UI.
 - [Performance](PERFORMANCE.md) — measured CPU and memory use.
 - [Audio formats](AUDIO_FORMATS.md) — compression, longer loops and architecture tradeoffs.
+- [Sound candidates](SOUND_CANDIDATES.md) — two listening options per sound and a size budget.
 - [Development](DEVELOPMENT.md) — contributing and running checks.
 - [Validation](VALIDATION.md) — automated tests and desktop checks performed.
 - [Publishing](PUBLISHING.md) — releases, marketplace submission and donations.
