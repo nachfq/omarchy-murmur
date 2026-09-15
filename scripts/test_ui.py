@@ -21,8 +21,12 @@ with tempfile.TemporaryDirectory(prefix='murmur-ui-') as directory:
     env = dict(os.environ, QT_QPA_PLATFORM='offscreen', QT_QPA_PLATFORMTHEME='', QT_QUICK_BACKEND='software')
     env.pop('WAYLAND_DISPLAY', None)
     env.pop('DISPLAY', None)
-    result = subprocess.run(['quickshell', '-p', str(fixture / 'shell.qml'), '--no-color'],
-                            env=env, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=45)
+    try:
+        result = subprocess.run(['quickshell', '-p', str(fixture / 'shell.qml'), '--no-color'],
+                                env=env, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=45)
+    except subprocess.TimeoutExpired as error:
+        print((error.stdout or b'').decode(errors='replace'))
+        raise
     print(result.stdout)
     summaries = [line.split('MURMUR_UI_RESULT ', 1)[1] for line in result.stdout.splitlines() if 'MURMUR_UI_RESULT ' in line]
     assert result.returncode == 0 and len(summaries) == 1, 'UI fixture did not finish'
