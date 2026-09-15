@@ -1,0 +1,127 @@
+{
+  "date": "2026-09-15",
+  "cpu": "Intel Core i5-1135G7",
+  "kernel": "7.2.3-arch1-3",
+  "baseline_revision": "73480fa",
+  "measured_revision": "9d5a05f",
+  "warmup_seconds": 3,
+  "sample_seconds": 15,
+  "baseline": [
+    {
+      "empty": {
+        "rss_mib": 63.66,
+        "pss_mib": 36.47,
+        "cpu_percent_one_core": 0.0,
+        "seconds": 15.07
+      },
+      "idle": {
+        "rss_mib": 115.46,
+        "pss_mib": 72.83,
+        "cpu_percent_one_core": 0.0,
+        "seconds": 15.0
+      },
+      "rain": {
+        "rss_mib": 110.55,
+        "pss_mib": 60.4,
+        "cpu_percent_one_core": 0.267,
+        "seconds": 15.0
+      },
+      "ten": {
+        "rss_mib": 172.91,
+        "pss_mib": 129.54,
+        "cpu_percent_one_core": 0.393,
+        "seconds": 15.26
+      },
+      "randomize": {
+        "rss_mib": 173.07,
+        "pss_mib": 129.7,
+        "cpu_percent_one_core": 0.999,
+        "seconds": 15.01
+      },
+      "paused": {
+        "rss_mib": 173.08,
+        "pss_mib": 129.71,
+        "cpu_percent_one_core": 0.0,
+        "seconds": 15.0
+      }
+    }
+  ],
+  "final": [
+    {
+      "empty": {
+        "rss_mib": 63.93,
+        "pss_mib": 36.53,
+        "cpu_percent_one_core": 0.067,
+        "seconds": 15.0
+      },
+      "idle": {
+        "rss_mib": 115.38,
+        "pss_mib": 72.54,
+        "cpu_percent_one_core": 0.0,
+        "seconds": 15.0
+      },
+      "rain": {
+        "rss_mib": 125.26,
+        "pss_mib": 81.75,
+        "cpu_percent_one_core": 0.461,
+        "seconds": 15.18
+      },
+      "ten": {
+        "rss_mib": 180.58,
+        "pss_mib": 137.07,
+        "cpu_percent_one_core": 0.6,
+        "seconds": 15.0
+      },
+      "randomize": {
+        "rss_mib": 179.87,
+        "pss_mib": 136.36,
+        "cpu_percent_one_core": 1.799,
+        "seconds": 15.01
+      },
+      "paused": {
+        "rss_mib": 114.95,
+        "pss_mib": 71.92,
+        "cpu_percent_one_core": 0.0,
+        "seconds": 15.01
+      }
+    },
+    {
+      "empty": {
+        "rss_mib": 63.82,
+        "pss_mib": 36.45,
+        "cpu_percent_one_core": 0.0,
+        "seconds": 15.0
+      },
+      "idle": {
+        "rss_mib": 115.32,
+        "pss_mib": 72.44,
+        "cpu_percent_one_core": 0.0,
+        "seconds": 15.07
+      },
+      "rain": {
+        "rss_mib": 111.35,
+        "pss_mib": 67.78,
+        "cpu_percent_one_core": 0.267,
+        "seconds": 15.0
+      },
+      "ten": {
+        "rss_mib": 173.2,
+        "pss_mib": 129.64,
+        "cpu_percent_one_core": 0.4,
+        "seconds": 15.0
+      },
+      "randomize": {
+        "rss_mib": 173.3,
+        "pss_mib": 129.73,
+        "cpu_percent_one_core": 2.0,
+        "seconds": 15.0
+      },
+      "paused": {
+        "rss_mib": 109.42,
+        "pss_mib": 66.34,
+        "cpu_percent_one_core": 0.0,
+        "seconds": 15.0
+      }
+    }
+  ]
+}

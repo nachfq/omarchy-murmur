@@ -77,6 +77,9 @@ Options checked on 2026-09-15:
   supports Argentina and fits the international open-source audience. Receiving
   requires onboarding and payout verification; personal-account sponsorships
   carry no GitHub platform fee. Set up an account before adding its funding link.
+  Its [payout terms](https://docs.github.com/en/site-policy/github-terms/github-sponsors-additional-terms#33-payment-timing)
+  include a 60-day initial waiting period; later payouts follow the configured
+  monthly schedule and any cross-border minimums/conversion conditions.
 - [Cafecito](https://cafecito.app/faq/como-configurar-mis-medios-de-cobro)
   connects to Mercado Pago for a local contribution link. Its current FAQ
   discloses fees in the platform/payment flow, rather than promising one fixed rate.
