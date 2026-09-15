@@ -16,7 +16,7 @@ Quickshell 0.3.1 and Qt 6.11.2. Omarchy 3/Waybar is not supported.
 
 ```sh
 omarchy plugin add https://github.com/nachfq/omarchy-murmur.git --enable
-omarchy bar move nachfq.murmur --section center --after omarchy.clock
+omarchy bar move nachfq.murmur --section center --before omarchy.clock
 ```
 
 The install command uses the repository's default branch. During initial
@@ -25,9 +25,17 @@ Omarchy installs the files and asks before enabling; there are no install hooks,
 extra processes or runtime package downloads. If Qt Multimedia is missing,
 install the two packages with Omarchy's package manager before enabling.
 
+Murmur is a separate bar widget beside `omarchy.indicators`. It reuses the
+native indicator component and center-hover behavior. Omarchy 4.0.3's bundled
+indicator group loads only its built-in entries; it does not expose a plugin
+registration API for adding Murmur inside that group.
+
 ## Use
 
-- Click the wave icon beside the clock to open the panel. Click again, click
+- Hover the center of the bar to reveal Murmur's paused, dimmed wave icon
+  before the clock. While playing, it stays visible in the normal theme color,
+  like Omarchy's status indicators. An open panel keeps its icon visible.
+- Click the wave icon to open the panel. Click again, click
   outside, or press Escape to close it. Closing does not stop the sounds.
 - **Play / Pause** controls the whole mix. A channel at zero is off. With every
   channel off, Play is disabled until you raise one.
@@ -72,6 +80,9 @@ omarchy plugin remove nachfq.murmur
 ```
 
 Disabling or removing Murmur stops its audio. Code reloads also start paused.
+If an update leaves old icons or controls visible, run `omarchy restart shell`
+to reload all QML components. This restarts the desktop shell and pauses Murmur;
+saved volumes and Randomize are preserved.
 Murmur does not install services, modify system files, or leave audio processes
 running. A channel whose recording cannot load shows “Audio unavailable”; the
 remaining channels still work. Reinstall the plugin to restore a damaged file.

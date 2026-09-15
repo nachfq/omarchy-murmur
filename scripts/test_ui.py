@@ -15,8 +15,11 @@ with tempfile.TemporaryDirectory(prefix='murmur-ui-') as directory:
     # installed/reference components unchanged; no desktop config is modified.
     for name in ['Ui', 'Commons']:
         shutil.copytree(shell / name, fixture / name)
-    for name in ['VolumeControl.qml', 'Service.qml', 'AudioChannel.qml', 'Model.js']:
+    for name in ['VolumeControl.qml', 'BarWidget.qml', 'Service.qml', 'AudioChannel.qml', 'Model.js']:
         shutil.copy2(root / name, fixture / name)
+    # Layer-shell panels need a Wayland compositor. Keep just their public
+    # lifecycle here; indicator drawing and click handling remain native.
+    shutil.copy2(root / 'tests/ui/PanelStub.qml', fixture / 'Panel.qml')
     shutil.copy2(root / 'tests/ui/shell.qml', fixture / 'shell.qml')
     env = dict(os.environ, QT_QPA_PLATFORM='offscreen', QT_QPA_PLATFORMTHEME='', QT_QUICK_BACKEND='software')
     env.pop('WAYLAND_DISPLAY', None)
@@ -31,4 +34,4 @@ with tempfile.TemporaryDirectory(prefix='murmur-ui-') as directory:
     summaries = [line.split('MURMUR_UI_RESULT ', 1)[1] for line in result.stdout.splitlines() if 'MURMUR_UI_RESULT ' in line]
     assert result.returncode == 0 and len(summaries) == 1, 'UI fixture did not finish'
     counts = json.loads(summaries[0])
-    assert counts['failed'] == 0 and counts['passed'] >= 9, counts
+    assert counts['failed'] == 0 and counts['passed'] >= 10, counts

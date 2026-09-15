@@ -1,7 +1,8 @@
 // Pure mixer state. Used by QML and the deterministic Node test harness.
 var ids = ['rain', 'thunder', 'waves', 'wind', 'fire', 'birds', 'crickets', 'coffee', 'bowl', 'noise'];
 var names = ['Rain', 'Thunder', 'Waves', 'Wind', 'Fire', 'Birds', 'Crickets', 'Coffee shop', 'Singing bowl', 'White noise'];
-var icons = ['󰖗', '󰖓', '󰖚', '󰖝', '󰈸', '󰌨', '󰃤', '󰅶', '󰺤', '󰕷'];
+// Nerd Fonts Material Design; bird, bowl-outline and waveform identify the last sounds.
+var icons = ['󰖗', '󰖓', '󰖚', '󰖝', '󰈸', '󱗆', '󰃤', '󰅶', '󰊩', '󱑽'];
 
 function volume(value, fallback) {
     return typeof value === 'number' && isFinite(value) ? Math.max(0, Math.min(1, value)) : fallback;
