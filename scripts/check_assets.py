@@ -12,6 +12,8 @@ sounds = json.loads((root / 'assets/sources.json').read_text())
 assert len(sounds) == 10 and len({s['id'] for s in sounds}) == 10
 assert {s['id'] for s in sounds} == set('rain thunder waves wind fire birds crickets coffee bowl noise'.split())
 assert {p.name for p in (root / 'assets').glob('*.wav')} == {Path(s['file']).name for s in sounds}
+# Guard against accidentally shipping full multi-minute stereo originals.
+assert sum((root / s['file']).stat().st_size for s in sounds) < 55 * 1024**2, 'Audio catalog exceeds the 55 MiB budget'
 credits = (root / 'SOUNDS_LICENSES.md').read_text()
 peaks = []
 for sound in sounds:
@@ -28,6 +30,9 @@ for sound in sounds:
     samples.frombytes(pcm)
     if sys.byteorder != 'little':
         samples.byteswap()
+    if 'crop_seconds' in sound:
+        expected_frames = round((sound['crop_seconds'] - sound['crossfade_seconds']) * 48000)
+        assert len(samples) == expected_frames, (path, len(samples), expected_frames)
     peak = max(abs(x) for x in samples)
     assert len(samples) > 48000 and 0.001 < peak < 0.1, (path, peak)
     # Loop boundary must not introduce a discontinuity larger than the

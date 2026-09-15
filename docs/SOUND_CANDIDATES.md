@@ -4,25 +4,31 @@
 
 ## Maintainer selections
 
-Selected on 2026-09-15: **R-B, T-B, W-B, V-A, B-A, K-A and S-B**.
-Use crops from the beginning. Keep the current crickets and generated white
-noise unchanged. Fire is awaiting a new choice from the alternatives below.
-Original WAV retrieval is still pending; these selections are not installed.
+Selected on 2026-09-15: **R-B, T-B, W-B, V-A, B-A, K-A, S-B and F-E**.
+The maintainer supplied the seven original WAVs and courter's original MP3.
+They are now prepared in `assets/`, with crops starting at zero. The existing
+crickets and generated white noise remain byte-for-byte unchanged.
 
-At the current mono 48 kHz PCM16 format, a first budget below 50 MiB can use
-these final loop lengths: rain 60 s, thunder 120 s, waves 60 s, wind 45 s,
-birds 60 s, coffee 55 s and bowl 40 s. Including the three unchanged files,
-that is about **49.8 MiB**. These are provisional preparation lengths, not a
-listening verdict. Allow extra input for the wrap crossfade; the crop still
-starts at zero. Keeping all five minutes of thunder instead would add about
-16.5 MiB to this plan.
+Final loop lengths: rain 60 s, thunder 120 s, waves 60 s, wind 45 s,
+birds 60 s, coffee 55 s, bowl 40 s and fire 60 s. The complete catalog is
+**52.99 MiB (55.57 MB)**, up from 35.96 MiB. The extra fire duration adds
+3.18 MiB to the earlier 49.8 MiB proposal. The downloaded originals total
+425.25 MiB and are not shipped. Keeping all five minutes of thunder instead
+would add about 16.5 MiB to the current prepared catalog.
+
+Wrap overlaps are 1–2 seconds; the input crop includes that overlap so the
+final durations above are exact. See [credits and preparation](../SOUNDS_LICENSES.md)
+for per-track settings and source/output checksums. CI checks exact crop
+lengths and a 55 MiB audio budget, preventing accidental full-original imports.
+The maintainer selected the source recordings by listening; automated checks
+of the prepared crops do not replace a final listening review of their seams.
 
 The two source recordings credited in W-B have now also been checked:
 [subtyrant, Xerokambos beach](https://freesound.org/people/subtyrant/sounds/132079/)
 and [indieground, Low tide](https://freesound.org/people/indieground/sounds/322139/)
 both identify CC0. Preserve all three authors in the imported recording's credits.
 
-### New fire alternatives
+### Fire alternatives (F-E selected)
 
 All three pages identify CC0. Descriptions below are the authors' recording
 notes, not our own listening assessment. F-C and F-D have lossless originals;
@@ -44,13 +50,15 @@ but would also move thunderclaps closer together.
 
 If background cleanup is desirable, use a slowly changing level envelope
 (a noise gate with attack/release), not a per-sample threshold: cutting each
-waveform's quiet samples creates distortion. Threshold selection needs the
-original recording and listening to preserve distant thunder and its decay.
-No gate has been applied yet.
+waveform's quiet samples creates distortion. The imported thunder keeps its
+background and decay intact. A gate is not applied merely to turn quiet
+sections into zeros, because that would not save
+PCM storage or sample RAM; any later cleanup needs a listening comparison.
 
 ## Original shortlist
 
-Shortlist checked on 2026-09-15. **These are candidates, not installed assets.**
+Shortlist checked on 2026-09-15. The selections above are now prepared assets;
+other entries remain listening candidates.
 All twenty linked sound pages identify CC0. Names, durations, formats and notes
 come from the authors' pages; this is not a claim that we listened to or approved
 the recordings. Listen using each source page's player and choose A or B per row.
@@ -76,8 +84,9 @@ can be several minutes long while we ship a selected 45–90 second passage.
 | White noise | [N-A: White Noise — ShawnyBoy](https://freesound.org/people/ShawnyBoy/sounds/165395/) · 1:30 · WAV, 44.1 kHz/16-bit mono. Plain white noise. | [N-B: NOISE-WHITE-10VU — mutantra](https://freesound.org/people/mutantra/sounds/571174/) · 1:04 · WAV, 48 kHz/24-bit stereo. Another white-noise reference. |
 
 *W-B's two original source pages are verified above; retain their credits when
-importing the composite. All selections still need original-file retrieval,
-checksum pinning, listening, mono compatibility and loop/headroom validation.
+importing the composite. The selected files now have pinned original/output
+checksums and mono loop/headroom validation; the prepared results still benefit
+from listening.
 
 White noise is already generated locally and dedicated to CC0. These two
 options are listening references; a longer noise file is not automatically
@@ -88,12 +97,12 @@ Reply with IDs, for example `R-A, T-B, W-A, V-A, F-A, B-B, C-A, K-A, S-A`.
 For any candidate, include a preferred timestamp or a reason to reject it
 (traffic, voices too distinct, sharp crackles, etc.). “Keep current” is valid.
 
-## Improving quality within the existing engine
+## Preparation rationale
 
-The current catalog is prepared from seven Vorbis files and two MP3 previews;
+The previous catalog was prepared from seven Vorbis files and two MP3 previews;
 white noise is generated. Conversion to WAV does not recover information
 already lost in those inputs. Mixing stereo down to mono reduces spatial width,
-and the current blanket 60-second trim and 250 ms seam treatment can make
+and its blanket 60-second trim and 250 ms seam treatment could make
 recognizable events recur. Those are plausible contributors to the reported
 quality; no listening assessment has yet isolated which matters most.
 
@@ -107,14 +116,10 @@ At this fixed output format, one minute costs **5.49 MiB**. Making every track
 two minutes would cost about **110 MiB in assets**, plus decoded memory and
 runtime overhead. A compressed source does not change the resulting WAV size.
 
-Suggested first budget: **at most 50 MiB of shipped audio**, prioritizing the
-currently shortest wind, coffee, bowl and fire loops. For example, replacing
-those with 45/60/45/60-second loops and keeping the other durations costs about
-48.3 MiB in PCM, versus the current 36 MiB. This is a planning estimate, not an
-installed catalog or RAM measurement. Prefer a better seam over more duration
-when the memory budget cannot justify a longer recording.
+The original proposal targeted 50 MiB. Including the selected fire recording
+at 60 seconds results in 52.99 MiB; CI allows up to 55 MiB. Prefer a better seam
+over more duration when memory cannot justify a longer recording.
 
-Once choices are made, measure actual files and active/paused RAM again. Asset
-RAM grows with loaded duration under SoundEffect; paused/muted channels release
-their decoded samples. No compressed decoder, native module or playback-engine
-replacement is proposed in this audition round.
+See [resource measurements](PERFORMANCE.md) for actual active/paused RAM.
+Asset RAM grows with loaded duration under SoundEffect; paused/muted channels
+release their decoded samples. No playback-engine replacement is included.

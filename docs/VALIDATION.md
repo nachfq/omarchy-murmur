@@ -217,3 +217,37 @@ starts playback automatically. Editing a manually paused, nonempty mix keeps
 it paused, as does restoring saved settings. Service tests cover those cases;
 native slider tests reach zero with Home and raise a channel with an arrow key
 at scales 1 and 1.5. Play remains disabled while all channels are zero.
+
+## Selected original recordings
+
+Eight recordings were replaced from the maintainer's downloaded originals:
+seven WAVs and courter's 256 kbps MP3. All eight are identified as CC0 on their
+source pages; the two upstream recordings in the selected wave composite were
+also checked and credited. Original-input and prepared-output SHA-256 values
+are pinned in `assets/sources.json`. Crickets and white noise retain their
+previous hashes and bytes.
+
+The eight crops start at zero, with 1–2 second wrap overlaps and final lengths
+of 40–120 seconds. The complete catalog is 55,567,940 bytes (**52.99 MiB**).
+Asset validation checks exact prepared lengths, mono 48 kHz PCM16, credits,
+checksums, boundary discontinuities and the conservative sum of peaks (0.8049).
+A 55 MiB budget catches accidental inclusion of full originals.
+
+Local service integration (11 passes), recorded fades, mute continuity,
+one-output/device-switch capture and loop capture all passed with the new
+catalog. The loop capture still uses unchanged continuous white noise: over
+61 seconds and two boundaries its longest near-silent run was 0.10 ms, without
+clipping. New recording boundaries are checked on decoded samples, not by
+claiming a real-time capture of every new loop. Native playback tests do not
+constitute a subjective assessment of audio quality or perceived loop seams.
+
+The preparation helper also passed an isolated 65-second crop/1-second overlap
+fixture: the resulting WAV was exactly 64 seconds and an unselected file and
+catalog entry were untouched. Its original defaults regenerated all previous
+assets with identical hashes before the replacements were made.
+
+The source recordings were selected by the maintainer's listening. Final
+prepared-loop listening remains a review step. No listening claim is made by
+the automated checks, and the unchanged peak/RMS calibration is not a claim
+that all sounds have equal perceived loudness. See [resource measurements](PERFORMANCE.md)
+for the measured memory cost of the longer recordings.

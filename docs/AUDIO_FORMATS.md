@@ -2,18 +2,20 @@
 
 # Audio formats and longer loops
 
-Research dated 2026-09-15. Production audio is unchanged. The question is how
+Research dated 2026-09-15 on the previous **35.96 MiB** catalog. The selected
+replacement catalog is now **52.99 MiB**, still using mono PCM16 WAV; see
+[the selected sources](SOUND_CANDIDATES.md). The question here is how
 to extend recordings while keeping a small download, bounded memory use,
 independent controls and a single application output.
 
 ## What compression saves
 
-Re-encoded all ten shipped mono 48 kHz recordings with FFmpeg 9.0.1. These are
+Re-encoded all ten previous mono 48 kHz recordings with FFmpeg 9.0.1. These are
 actual file sizes for the same durations, not estimates for new recordings.
 
 | Format | Total asset size | Reduction from WAV |
 | --- | ---: | ---: |
-| PCM16 WAV, current | 35.96 MiB | — |
+| PCM16 WAV, previous catalog | 35.96 MiB | — |
 | FLAC, lossless, compression level 8 | 14.80 MiB | 59% |
 | Opus, 64 kb/s target, VBR | 2.84 MiB | 92% |
 | Opus, 96 kb/s target, VBR | 4.31 MiB | 88% |
@@ -86,12 +88,12 @@ in [AGENTS.md](../AGENTS.md); neither has been added to Yuragi.
 
 ## Longer recordings need longer sources
 
-The cached licensed inputs already contain approximately 130 seconds of birds,
+The previous cached licensed inputs contained approximately 130 seconds of birds,
 125 seconds of rain, 118 seconds of waves and 555 seconds of thunder. Yuragi
-currently trims these to a maximum of 60 seconds before preparing the loop.
+then trimmed these to a maximum of 60 seconds before preparing the loop.
 
-Other inputs are already short: wind 14.8 seconds, coffee shop 16.7, singing
-bowl 18.9, fire 25.5 and crickets 49.3. Those need longer licensed recordings
+Other previous inputs were short: wind 14.8 seconds, coffee shop 16.7, singing
+bowl 18.9, fire 25.5 and crickets 49.3. Those needed longer licensed recordings
 or a deliberate variation design. Repeating a short file into a longer file
 does not add variety. White noise can be generated for any duration; generating
 it during playback would belong to a future native engine.
