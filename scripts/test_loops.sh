@@ -4,8 +4,8 @@ cd "$(dirname "$0")/.."
 mkdir -p artifacts
 runner="$(command -v qmltestrunner || true)"
 if [[ -z "$runner" ]]; then runner=/usr/lib/qt6/bin/qmltestrunner; fi
-test_sink="murmur-loop-$$"
-module_id="$(pactl load-module module-null-sink sink_name="$test_sink" sink_properties=device.description=MurmurTest)"
+test_sink="yuragi-loop-$$"
+module_id="$(pactl load-module module-null-sink sink_name="$test_sink" sink_properties=device.description=YuragiTest)"
 recorder_pid=''
 cleanup() {
   if [[ -n "$recorder_pid" ]]; then kill "$recorder_pid" 2>/dev/null || true; fi

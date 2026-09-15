@@ -31,13 +31,13 @@ application code is included. Thunder and bowl use the high-quality previews
 served by Freesound under the source recording licenses. White noise is
 generated locally with a fixed seed; we dedicate that recording to CC0.
 
-## Murmur modifications
+## Yuragi modifications
 
 All files are converted to 48 kHz mono, trimmed to at most 60 seconds, given
 a 250 ms wrap crossfade, calibrated with a fixed per-track peak budget, and
 encoded as mono 48 kHz, 16-bit PCM WAV. All tracks use the same PCM format
 so Qt can mix them through one output. Prior edits by Porrumentzio and qubodup are
-credited above. Neither creators nor projects endorse Murmur.
+credited above. Neither creators nor projects endorse Yuragi.
 
 Exact download URLs, original-input SHA-256 and shipped-file SHA-256 are in
 [assets/sources.json](assets/sources.json). To verify files:
@@ -61,5 +61,5 @@ Cached source files live in `.cache/audio/` and are not shipped.
 [A Soft Murmur terms](https://asoftmurmur.com/docs/terms-of-use.html) reserve
 rights to site materials and restrict reuse; its
 [credits](https://asoftmurmur.com/about/) do not grant a general license to
-redistribute its mixes. Murmur uses independent preparation of openly licensed
+redistribute its mixes. Yuragi uses independent preparation of openly licensed
 sources and original code, branding and interface.

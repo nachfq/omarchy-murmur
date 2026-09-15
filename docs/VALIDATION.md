@@ -37,7 +37,7 @@ listening to every recording or guarantee every audio backend is gapless.
 
 ### Native UI polish
 
-Removed Murmur's added slider focus rectangle. Input still belongs to Qt's
+Removed Yuragi's added slider focus rectangle. Input still belongs to Qt's
 standard Slider. Birds, singing bowl and white noise now use Nerd Fonts'
 Material Design `bird`, `bowl-outline` and `waveform` glyphs; checked their
 rendering in the installed JetBrainsMono Nerd Font.

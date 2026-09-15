@@ -3,7 +3,7 @@ import qs.Ui as Ui
 
 Ui.BarWidget {
     id: root
-    moduleName: 'nachfq.murmur'
+    moduleName: 'nachfq.yuragi'
     readonly property var hostBar: bar
     readonly property var mixer: hostBar && hostBar.shell ? hostBar.shell.serviceFor(moduleName) : null
     readonly property bool opened: panel.opened
@@ -32,13 +32,13 @@ Ui.BarWidget {
         indicatorHost: revealState
         activeText: '󰖚'
         active: !!root.mixer && root.mixer.playing
-        activeTooltipText: 'Murmur · Playing'
-        inactiveTooltipText: 'Murmur · Paused'
+        activeTooltipText: 'Yuragi · Playing'
+        inactiveTooltipText: 'Yuragi · Paused'
         onPressed: function(mouseButton) {
             if (mouseButton === Qt.LeftButton) panel.toggle();
         }
         Accessible.role: Accessible.Button
-        Accessible.name: 'Murmur'
+        Accessible.name: 'Yuragi'
         Accessible.description: tooltipText
         Accessible.onPressAction: panel.toggle()
     }

@@ -1,11 +1,11 @@
 import QtQuick
 import QtTest
 import QtMultimedia
-import '..' as Murmur
+import '..' as Yuragi
 
 TestCase {
     id: tests
-    name: 'MurmurService'
+    name: 'YuragiService'
     when: windowShown
     property var mixer: null
     MediaDevices { id: devices }
@@ -19,30 +19,30 @@ TestCase {
 
     QtObject {
         id: fakeShell
-        property var barConfig: ({layout: {center: [{id: 'nachfq.murmur'}]}})
+        property var barConfig: ({layout: {center: [{id: 'nachfq.yuragi'}]}})
         property int writes: 0
         function updateEntryInline(id, settings) {
-            compare(id, 'nachfq.murmur');
+            compare(id, 'nachfq.yuragi');
             writes++;
             barConfig = {layout: {center: [Object.assign({id: id}, settings)]}};
             return true;
         }
     }
 
-    Component { id: service; Murmur.Service {} }
-    Component { id: badAudio; Murmur.AudioChannel { soundId: 'missing-test-file' } }
+    Component { id: service; Yuragi.Service {} }
+    Component { id: badAudio; Yuragi.AudioChannel { soundId: 'missing-test-file' } }
 
     function playerFor(id) {
         return findChild(findChild(mixer, 'channel-' + id), id);
     }
 
     function init() {
-        fakeShell.barConfig = {layout: {center: [{id: 'nachfq.murmur'}]}};
+        fakeShell.barConfig = {layout: {center: [{id: 'nachfq.yuragi'}]}};
         fakeShell.writes = 0;
         mixer = createTemporaryObject(service, tests, {shell: fakeShell});
         verify(mixer !== null);
-        tryVerify(function() { return devices.audioOutputs.some(function(d) { return d.description === 'MurmurTest'; }); });
-        var output = devices.audioOutputs.filter(function(d) { return d.description === 'MurmurTest'; })[0];
+        tryVerify(function() { return devices.audioOutputs.some(function(d) { return d.description === 'YuragiTest'; }); });
+        var output = devices.audioOutputs.filter(function(d) { return d.description === 'YuragiTest'; })[0];
         for (var i = 0; i < 10; i++) playerFor(mixer.channels[i].id).audioDevice = output;
     }
 

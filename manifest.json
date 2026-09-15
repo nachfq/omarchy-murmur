@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "id": "nachfq.murmur",
-  "name": "Murmur",
+  "id": "nachfq.yuragi",
+  "name": "Yuragi",
   "version": "1.0.0",
   "author": "Nacho fq",
   "license": "MIT",
@@ -9,7 +9,7 @@
   "kinds": ["service", "bar-widget"],
   "entryPoints": {"service": "Service.qml", "barWidget": "BarWidget.qml"},
   "barWidget": {
-    "displayName": "Murmur",
+    "displayName": "Yuragi",
     "category": "Media",
     "defaultSection": "center",
     "allowMultiple": false

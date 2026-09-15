@@ -1,4 +1,4 @@
-# Working on Murmur
+# Working on Yuragi
 
 Keep this plugin small: QML, Qt Multimedia, and the existing Omarchy shell UI.
 No extra runtime processes, network requests, installers, or package managers.
@@ -18,4 +18,5 @@ Never edit packaged Omarchy files. Follow the installed shell contract.
   Test actual pointer/keyboard events, not just assignments to model values.
 - Include actual validation evidence in PRs. Do not claim listening, graphical,
   multi-monitor, or device tests that were not performed.
-- Keep the UI in English. Donations belong on GitHub, not in the panel.
+- Keep controls in English; the footer brand is `ゆらぎ · by nachfq for everyone`.
+  Donations belong on GitHub, not in the panel.

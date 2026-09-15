@@ -38,7 +38,7 @@ Item {
         for (var s = 0; s < sections.length; s++) {
             var entries = layout[sections[s]] || [];
             for (var i = 0; i < entries.length; i++) {
-                if (entries[i].id === 'nachfq.murmur') {
+                if (entries[i].id === 'nachfq.yuragi') {
                     // The service owns the live mix. Config notifications may
                     // echo older writes; they must never overwrite a gesture.
                     sourceSettings = entries[i];
@@ -60,7 +60,7 @@ Item {
         if (encoded === savedState || !shell) return;
         var entry = Object.assign({}, sourceSettings, prefs);
         savedState = encoded;
-        shell.updateEntryInline('nachfq.murmur', entry);
+        shell.updateEntryInline('nachfq.yuragi', entry);
     }
 
     function scheduleSave() {

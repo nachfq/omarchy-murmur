@@ -7,7 +7,7 @@ from pathlib import Path
 import subprocess
 import sys
 
-if os.environ.get('MURMUR_PRIVATE_AUDIO') != '1':
+if os.environ.get('YURAGI_PRIVATE_AUDIO') != '1':
     sys.exit('Run via scripts/with_test_audio.sh; never change desktop defaults.')
 root = Path(__file__).resolve().parent.parent
 os.chdir(root)
@@ -23,23 +23,23 @@ proc = None
 try:
     for name in ['A', 'B']:
         modules.append(command('pactl', 'load-module', 'module-null-sink',
-                               'sink_name=murmur-output-' + name,
-                               'sink_properties=device.description=MurmurOutput' + name))
-    command('pactl', 'set-default-sink', 'murmur-output-A')
+                               'sink_name=yuragi-output-' + name,
+                               'sink_properties=device.description=YuragiOutput' + name))
+    command('pactl', 'set-default-sink', 'yuragi-output-A')
     runner = '/usr/lib/qt6/bin/qmltestrunner'
     proc = subprocess.Popen([runner, '-input', 'tests/tst_output.qml'], stdout=subprocess.PIPE,
                             stderr=subprocess.STDOUT, text=True)
     checked = []
     for line in proc.stdout:
         print(line, end='', flush=True)
-        if 'qml: MURMUR_OUTPUT_' not in line:
+        if 'qml: YURAGI_OUTPUT_' not in line:
             continue
-        phase = line.strip().split('MURMUR_OUTPUT_')[-1]
+        phase = line.strip().split('YURAGI_OUTPUT_')[-1]
         if phase == 'SWITCH':
-            command('pactl', 'set-default-sink', 'murmur-output-B')
+            command('pactl', 'set-default-sink', 'yuragi-output-B')
             command('pactl', 'unload-module', modules.pop(0))
             continue
-        sink_name = 'murmur-output-' + ('B' if phase == 'SWITCHED' else 'A')
+        sink_name = 'yuragi-output-' + ('B' if phase == 'SWITCHED' else 'A')
         sink = next(s for s in objects('sinks') if s['name'] == sink_name)
         streams = [s for s in objects('sink-inputs') if s['sink'] == sink['index']]
         assert len(streams) <= 1 if phase == 'PAUSED' else len(streams) == 1, (phase, streams)
