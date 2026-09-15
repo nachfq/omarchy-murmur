@@ -1,0 +1,111 @@
+{
+  "date": "2026-09-15",
+  "ffmpeg": "ffmpeg version n9.0.1 Copyright (c) 2000-2026 the FFmpeg developers",
+  "rows": [
+    {
+      "sound": "birds",
+      "seconds": 59.75,
+      "wav_bytes": 5736110,
+      "wav_sha256": "dfd79dfbc1e58b2367b6c77ba5535f8993d744c2ac8468c45bbac1ab10f3f82f",
+      "opus64_bytes": 427603,
+      "opus96_bytes": 648041,
+      "flac_bytes": 2281161,
+      "source_seconds": 129.804807
+    },
+    {
+      "sound": "bowl",
+      "seconds": 18.656,
+      "wav_bytes": 1791118,
+      "wav_sha256": "3bebb841957656df20d5c9fa84d282575db76bd6702cd5f7765eb105f7428640",
+      "opus64_bytes": 182763,
+      "opus96_bytes": 265370,
+      "flac_bytes": 423631,
+      "source_seconds": 18.906168
+    },
+    {
+      "sound": "coffee",
+      "seconds": 16.413,
+      "wav_bytes": 1575734,
+      "wav_sha256": "e43f645b6e9919dabd1b7fee6e94fe2704dd7c1f011e1ca6f681f0bd0252d93e",
+      "opus64_bytes": 117641,
+      "opus96_bytes": 180372,
+      "flac_bytes": 562768,
+      "source_seconds": 16.662698
+    },
+    {
+      "sound": "crickets",
+      "seconds": 49.071,
+      "wav_bytes": 4710900,
+      "wav_sha256": "6e846f1c1476353f24e5d119f304a57c1d6af4f7256caccf36ab2ed55f948174",
+      "opus64_bytes": 475387,
+      "opus96_bytes": 707986,
+      "flac_bytes": 1493786,
+      "source_seconds": 49.320635
+    },
+    {
+      "sound": "fire",
+      "seconds": 25.288,
+      "wav_bytes": 2427716,
+      "wav_sha256": "b61db3bfcbbac8a6befd299f14cd1860205e8c3fe1276e85cd9db8bd7e5f34c0",
+      "opus64_bytes": 181205,
+      "opus96_bytes": 279433,
+      "flac_bytes": 903581,
+      "source_seconds": 25.537596
+    },
+    {
+      "sound": "noise",
+      "seconds": 29.75,
+      "wav_bytes": 2856116,
+      "wav_sha256": "517eb6c6140a0567bfdf1385107dbfddf2517c08568fc767f8209e7426ba6b95",
+      "opus64_bytes": 211729,
+      "opus96_bytes": 321008,
+      "flac_bytes": 2126578
+    },
+    {
+      "sound": "rain",
+      "seconds": 59.75,
+      "wav_bytes": 5736110,
+      "wav_sha256": "8cd8400b08e11a3a27e27c45b04a277644a062b6874143a4b7e231394aac1f39",
+      "opus64_bytes": 433012,
+      "opus96_bytes": 662000,
+      "flac_bytes": 2909183,
+      "source_seconds": 124.577778
+    },
+    {
+      "sound": "thunder",
+      "seconds": 59.75,
+      "wav_bytes": 5736114,
+      "wav_sha256": "4f5d579704be168ff8747b319cfbf2abd06c936f0d1c8935cc26e9e96a69211d",
+      "opus64_bytes": 421495,
+      "opus96_bytes": 644705,
+      "flac_bytes": 1985548,
+      "source_seconds": 554.893061
+    },
+    {
+      "sound": "waves",
+      "seconds": 59.75,
+      "wav_bytes": 5736108,
+      "wav_sha256": "2306cf7f1a12c1ae7b6f1c324dce0c48854828e28782c5c64d93f38c033ae0bb",
+      "opus64_bytes": 423325,
+      "opus96_bytes": 651075,
+      "flac_bytes": 2457041,
+      "source_seconds": 118.034263
+    },
+    {
+      "sound": "wind",
+      "seconds": 14.59,
+      "wav_bytes": 1400748,
+      "wav_sha256": "ece48e9bae1e6169890811b77a711fcc91007eb1903506300409bdc6b2aca745",
+      "opus64_bytes": 101028,
+      "opus96_bytes": 157370,
+      "flac_bytes": 370158,
+      "source_seconds": 14.839955
+    }
+  ],
+  "totals_mib": {
+    "wav": 35.96,
+    "opus64": 2.837,
+    "opus96": 4.308,
+    "flac": 14.795
+  }
+}
